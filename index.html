@@ -2,13 +2,15 @@
 <html>
 	<head>
 		<title>Magic Maker</title>
-		<link href="style.css" rel="stylesheet"/>
+		<link type="text/css" href="style.css" rel="stylesheet"/>
 		<link rel="shortcut icon" href="icon.png"/>
+		<script type="text/javascript" src="http://code.jquery.com/jquery-3.1.0.min.js"></script>
+		<script type="text/javascript" src="script.js"></script>
 	</head>
 	<body>
 		<h1>Welcome!</h1>
 		<div id="cards">
-			<img src="https://api.scryfall.com/cards/random?format=image&version=normal" alt="Random Card"/>
+			<img id="cardImg" src="loading.gif" alt="Random Card"/>
 		</div>
 		<p> you are not welcome at all... F to pay respects</p>
 	</body>
