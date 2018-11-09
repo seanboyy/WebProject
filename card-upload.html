@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!-- use the same header as every other page, except the title is changed as appropriate --> 
+		<title>Magic Maker - Upload Custom Card</title>
+		<link type="text/css" href="style.css" rel="stylesheet"/>
+		<link rel="shortcut icon" href="icon.png"/>
+		<script type="text/javascript" src="http://code.jquery.com/jquery-3.1.0.min.js"></script>
+		<script type="text/javascript" src="script.js"></script>
+	</head>
+	<body>
+		<form method="POST" action="acct_create.php" enctype="multipart/form-data">
+			<fieldset>
+				<legend>Upload a Card</legend>
+				<table>
+					<tr>
+						<td><label for="f-card-img">Card Image: </label></td>
+						<td><input type="file" name="card-img" id="f-card-img"/></td>
+					</tr>
+					<tr>
+						<td><label for="f-card-name">Card Name: </label></td>
+						<td><input type="text" name="card-name" id="f-card-name"/></td>
+					</tr>
+					<tr>
+						<td><label for="f-mana-cost">Mana Cost: </label></td>
+						<td><input type="text" name="mana-cost" id="f-mana-cost"/></td>
+					</tr>
+					<tr>
+						<td><label for="f-color">Color(s): </label></td>
+						<td><input type="checkbox" name="color" value="White" id="f-color"/>White</td>
+						<td><input type="checkbox" name="color" value="Blue" id="f-color"/>Blue</td>
+						<td><input type="checkbox" name="color" value="Black" id="f-color"/>Black</td>
+						<td><input type="checkbox" name="color" value="Red" id="f-color"/>Red</td>
+						<td><input type="checkbox" name="color" value="Green" id="f-color"/>Green</td>
+					</tr>
+					<tr>
+						<td><label for="f-type-line">Type Line: </label></td>
+						<td><input type="text" name="type-line" id="f-type-line"/></td>
+					</tr>
+					<tr>
+						<td><label for="f-rarity">Rarity: </label></td>
+						<td><select name="rarity" id="f-rarity">
+							<option value="1">--Not Selected--</option>
+							<option value="2">Common</option>
+							<option value="3">Uncommon</option>
+							<option value="4">Rare</option>
+							<option value="5">Mythic Rare</option>
+						</select></td>
+					</tr>
+				</table>
+			</fieldset>
+		</form>
+	</body>
+</html>
