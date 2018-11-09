@@ -1,25 +1,50 @@
+var funqueue = [];
+
 $(document).ready(function(){
-	var i = 1;
-	i = loadImages(i, 3);
+	for(var i = 0; i < 36; ++i){
+		funqueue.push(loadImage);
+	}
 });
 
-function loadImages(offPoint, count){
-	var i = offPoint;
-	for(; i < count; ++i){
-		console.log('#cardImg'.concat(i));
-		$('#cardImg'.concat(i)).attr('src', 'https://api.scryfall.com/cards/random?format=image&version=normal');
-		//setImage('#cardImg'.concat(i), 'https://api.scryfall.com/cards/random?format=image&version=normal');
-		console.log("doing wait");
-		sleep(1000);
-		console.log("waited");
+var lastScrollTop = 0;
+$(document).scroll(function(){
+	var st = $(this).scrollTop();
+	if (st > lastScrollTop){
+		if(funqueue.length < 10) funqueue.push(loadImage);
+	}
+	lastScrollTop = st;
+});
+
+function loadImage(){
+	loadImages(1);
+}
+
+function loadImages(count){
+	for(var i = 0; i < count; ++i){
+		var imgsrc;
+		var url = 'https://api.scryfall.com/cards/random';
+		var jqxhr = $.get(url);
+		jqxhr.done(function(data){
+			var obj = data;
+			imgsrc = obj.image_uris.small;
+			imgsrc = imgsrc.split("?")[0];
+			$('#cards').append('<img alt="cardImage" src="' + imgsrc + '"/>');
+		});
+		sleep(100);
 	}
 }
 
 function sleep(milliseconds) {
-  var start = new Date().getTime();
-  for (var i = 0; i < 1e10; i++) {
-    if ((new Date().getTime() - start) > milliseconds){
-      break;
-    }
-  }
+	var start = new Date().getTime();
+	for (var i = 0; i < 1e10; i++) {
+		if ((new Date().getTime() - start) > milliseconds){
+			break;
+		}
+	}
 }
+
+function executeQueue(){
+	if(funqueue.length > 0) (funqueue.shift())();
+}
+
+setInterval(executeQueue, 250);
