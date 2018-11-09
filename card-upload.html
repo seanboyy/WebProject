@@ -9,7 +9,7 @@
 		<script type="text/javascript" src="script.js"></script>
 	</head>
 	<body>
-		<form method="POST" action="acct_create.php" enctype="multipart/form-data">
+		<form method="POST" action="card-upload.php" enctype="multipart/form-data">
 			<fieldset>
 				<legend>Upload a Card</legend>
 				<table>
@@ -41,14 +41,39 @@
 						<td><label for="f-rarity">Rarity: </label></td>
 						<td><select name="rarity" id="f-rarity">
 							<option value="1">--Not Selected--</option>
-							<option value="2">Common</option>
-							<option value="3">Uncommon</option>
-							<option value="4">Rare</option>
-							<option value="5">Mythic Rare</option>
+							<option value="2">Token</option>
+							<option value="3">Common</option>
+							<option value="4">Uncommon</option>
+							<option value="5">Rare</option>
+							<option value="6">Mythic Rare</option>
 						</select></td>
+					</tr>
+					<tr>
+						<td><label for="f-rules-text">Rules Text:</label></td>
+						<td><textarea id="f-rules-text" name="rules-text" rows="3" cols="25"></textarea></td>
+					</tr>
+					<tr>
+						<td><label for="f-power">Power: </label></td>
+						<td><input type="number" name="power" id="f-power"/></td>
+						<td><label for="f-toughness">Toughness: </label></td>
+						<td><input type="number" name="toughness" id="f-toughness"/></td>
+					</tr>
+					<tr>
+						<td><label for="f-artist">Artist Credit: </label></td>
+						<td><input type="text" name="artist" id="f-artist"/></td>
 					</tr>
 				</table>
 			</fieldset>
+			<fieldset>
+				<legend>Card Description</legend>
+				<table>
+					<tr>
+						<td><label for="f-rules-text">Card Description:</label></td>
+						<td><textarea id="f-rules-text" name="rules-text" rows="4" cols="25" placeholder="Give a short description of your thought process in creating this card. This is entirely optional."></textarea></td>
+					</tr>
+				</table>
+			</fieldset>
+			<input type="submit" value="Submit Card" />
 		</form>
 	</body>
 </html>
