@@ -1,8 +1,13 @@
-h1{
-	background-color:#FF0000;
-}
 p{
 	background-color:black;
 	color: pink;
 }
-	
+.headIcon{
+	max-height:100%;
+	max-width:100%;
+}
+.headCol{
+	background-color:lightgray;
+	height:100px;
+	outline: 5px solid black;
+}
