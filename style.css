@@ -1,7 +1,7 @@
 .title{
 	font-size:300%;
 	padding-top:15px;
-	color:#c0392b;
+	color:#B22222;
 	font-family: 'Milonga', cursive;
 }
 .headIcon{
@@ -24,7 +24,7 @@
 	max-width:150px;
 }
 * {
-	background-color:lightgray;
+	background-color:darkgray;
 }
 
 body {
