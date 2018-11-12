@@ -1,13 +1,13 @@
 .title{
 	font-size:300%;
 	padding-top:15px;
+	color:#c0392b;
 }
 .headIcon{
 	max-height:100%;
 	max-width:100%;
 }
 .headCol{
-	background-color:lightgray;
 	height:100px;
 	width:100%;
 	outline: 5px solid black;
@@ -21,4 +21,7 @@
 	margin:0px 1% 1% 1%;
 	max-height:210px;
 	max-width:150px;
+}
+* {
+	background-color:lightgray;
 }
