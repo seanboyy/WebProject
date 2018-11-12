@@ -36,6 +36,7 @@
 
 		<form method="POST" action="card-upload.php" enctype="multipart/form-data">
 			<fieldset>
+			<div>
 				<legend>Upload a Card</legend>
 				<table>
 					<tr>
@@ -79,9 +80,11 @@
 					</tr>
 					<tr>
 						<td><label for="f-power">Power: </label></td>
-						<td><input type="number" name="power" id="f-power" min="0"/></td>
+						<td><input type="number" name="power" id="f-power" min="-100"/></td>
+					</tr>
+					<tr>
 						<td><label for="f-toughness">Toughness: </label></td>
-						<td><input type="number" name="toughness" id="f-toughness" min="0"/></td>
+						<td><input type="number" name="toughness" id="f-toughness" min="-100"/></td>
 					</tr>
 					<tr>
 						<td><label for="f-artist">Artist Credit: </label></td>
@@ -100,5 +103,6 @@
 			</fieldset>
 			<input type="submit" value="Submit Card" />
 		</form>
+		</div>
 	</body>
 </html>
