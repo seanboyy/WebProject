@@ -3,6 +3,7 @@ var funqueue = [];
 $(document).ready(function(){
 	for(var i = 0; i < 36; ++i){
 		funqueue.push(loadImage);
+		//funqueue.push(sleep);
 	}
 });
 
@@ -10,13 +11,20 @@ var lastScrollTop = 0;
 $(document).scroll(function(){
 	var st = $(this).scrollTop();
 	if (st > lastScrollTop){
-		if(funqueue.length < 10) funqueue.push(loadImage);
+		if(funqueue.length < 10){
+			funqueue.push(loadImage);
+			//funqueue.push(sleep);
+		}
 	}
 	lastScrollTop = st;
 });
 
 function loadImage(){
 	loadImages(1);
+}
+
+function sleep(){
+	sleep(100);
 }
 
 function loadImages(count){
@@ -47,4 +55,4 @@ function executeQueue(){
 	if(funqueue.length > 0) (funqueue.shift())();
 }
 
-setInterval(executeQueue, 250);
+setInterval(executeQueue, 100);
