@@ -1,6 +1,6 @@
-p{
-	background-color:black;
-	color: pink;
+.title{
+	font-size:300%;
+	padding-top:15px;
 }
 .headIcon{
 	max-height:100%;
@@ -9,5 +9,11 @@ p{
 .headCol{
 	background-color:lightgray;
 	height:100px;
+	width:100%;
 	outline: 5px solid black;
+}
+.noPad {
+	padding-right:0px !important;
+	padding-left:0px !important;
+	margin-bottom:20px;
 }
