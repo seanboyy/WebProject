@@ -1,8 +1,27 @@
-h1{
-	background-color:#FF0000;
+.title{
+	font-size:300%;
+	padding-top:15px;
+	color:#c0392b;
 }
-p{
-	background-color:black;
-	color: pink;
+.headIcon{
+	max-height:100%;
+	max-width:100%;
 }
-	
+.headCol{
+	height:100px;
+	width:100%;
+	outline: 5px solid black;
+}
+.noPad {
+	padding-right:0px !important;
+	padding-left:0px !important;
+	margin-bottom:20px;
+}
+.cardFormat {
+	margin:0px 1% 1% 1%;
+	max-height:210px;
+	max-width:150px;
+}
+* {
+	background-color:lightgray;
+}
