@@ -17,3 +17,8 @@
 	padding-left:0px !important;
 	margin-bottom:20px;
 }
+.cardFormat {
+	margin:0px 1% 1% 1%;
+	max-height:210px;
+	max-width:150px;
+}

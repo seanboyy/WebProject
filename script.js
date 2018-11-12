@@ -28,7 +28,7 @@ function loadImages(count){
 			var obj = data;
 			imgsrc = obj.image_uris.small;
 			imgsrc = imgsrc.split("?")[0];
-			$('#cards').append('<img alt="cardImage" src="' + imgsrc + '"/>');
+			$('#cards').append('<img alt="cardImage" src="' + imgsrc + '" class="cardFormat"/>');
 		});
 		sleep(100);
 	}
