@@ -4,7 +4,9 @@ $(document).ready(function(){
 		"<div class=\"row\">" +
 			"<div class=\"col-xs-3 noPad\">" +
 				"<div class=\"headCol text-center\">" +
-					"<img alt=\"Tabs\" src=\"TabsIcon.png\" class=\"headIcon\"/>" +
+					"<a href=\"card-upload.html\">" +
+						"<img alt=\"Tabs\" src=\"TabsIcon.png\" class=\"headIcon\"/>" +
+					"</a>" +
 				"</div>" +
 			"</div>" +
 			"<div class=\"col-xs-6 noPad\">" +
