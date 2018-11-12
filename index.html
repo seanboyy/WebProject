@@ -6,7 +6,9 @@
 		<link type="text/css" href="style.css" rel="stylesheet"/>
 		<link rel="shortcut icon" href="icon.png"/>
 		<script type="text/javascript" src="http://code.jquery.com/jquery-3.1.0.min.js"></script>
+		
 		<script type="text/javascript" src="load-cards-on-scroll.js"></script>
+		<script type="text/javascript" src="loadHeader.js"></script>
 		
 		<!-- For Bootstrap: -->
 		<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -16,24 +18,8 @@
 		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	</head>
 	<body>
-		<!-- Standard Header to be used on every page. Find a way to keep this in a single file.  -->
-		<div class="row">
-			<div class="col-xs-3 noPad">
-				<div class="headCol text-center">
-					<img alt="Tabs" src="TabsIcon.png" class="headIcon"/>
-				</div>
-			</div>
-			<div class="col-xs-6 noPad">
-				<div class="headCol text-center">
-					<p class="title"><Strong>Magic Maker</strong></p>
-				</div>
-			</div>
-			<div class="col-xs-3 noPad">
-				<div class="headCol text-center">
-					<img alt="Options" src="OptionsIcon.png" class="headIcon"/>
-				</div>
-			</div>
-		</div>		
+		<!-- Header is dynamically loaded using AJAX-->
+		<div id="header" class="row"></div>
 		<div id="cards" class="text-center">
 		</div>
 		<p> you are not welcome at all... F to pay respects</p>
