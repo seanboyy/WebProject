@@ -31,3 +31,11 @@ body {
 	min-width: 500px; 
 	margin: 0 auto;
 }
+.right_side{
+	text-align: right;
+	padding: .5rem;
+}
+
+.right_side table{
+	float: right;
+}
