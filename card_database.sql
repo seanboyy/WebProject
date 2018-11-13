@@ -31,7 +31,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `custom_cards` (
   `card_id` int(10) NOT NULL,
   `card_name` text CHARACTER SET utf8 COLLATE utf8_bin,
-  `mana_cost` int(7) DEFAULT NULL,
+  `mana_cost` text CHARACTER SET utf8 COLLATE utf8_bin,
   `type` text CHARACTER SET utf8 COLLATE utf8_bin,
   `rarity` int(11) DEFAULT NULL,
   `rules` text CHARACTER SET utf8 COLLATE utf8_bin,
