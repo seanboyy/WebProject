@@ -5,18 +5,26 @@
 	font-family: 'Milonga', cursive;
 }
 .headIcon{
-	max-height:100%;
+	max-height:100px;
 	max-width:100%;
+	padding:0px;
+	border:none;
 }
 .headCol{
 	height:100px;
 	width:100%;
 	outline: 5px solid black;
 }
+.selectionArea {
+	margin-bottom:20px;
+}
+.insideSelection {
+	height:50px;
+	background-color:#515a5a;
+}
 .noPad {
 	padding-right:0px !important;
 	padding-left:0px !important;
-	margin-bottom:20px;
 }
 .cardFormat {
 	margin:0px 1% 1% 1%;

@@ -32,21 +32,14 @@ CREATE TABLE `custom_cards` (
   `card_id` int(10) NOT NULL,
   `card_name` text CHARACTER SET utf8 COLLATE utf8_bin,
   `mana_cost` int(7) DEFAULT NULL,
-  `supertype` enum('Ongoing','Legendary','Snow','Basic','World') CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  `type` text CHARACTER SET utf8 COLLATE utf8_bin,
   `rarity` int(11) DEFAULT NULL,
   `rules` text CHARACTER SET utf8 COLLATE utf8_bin,
   `power` int(11) DEFAULT NULL,
   `toughness` int(11) DEFAULT NULL,
   `creator_id` int(10) DEFAULT NULL,
   `description` text CHARACTER SET utf8 COLLATE utf8_bin,
-  `mana_type` int(29) DEFAULT NULL,
-  `special_type` enum('Token','Phenomenon','Scheme','Conspiracy','Plane','Vanguard') CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
-  `basic_type` enum('Instant','Sorcery','Enchantment','Artifact','Planeswalker','Host','Tribal','Creature','Land') CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
-  `spell_type` enum('Instant','Sorcery','Tribal') CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
-  `permanent_type` enum('Enchantment','Artifact','Planeswalker','Creature','Land','Tribal') CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
-  `modifier_type` enum('Tribal','Host') CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
-  `subtype` text CHARACTER SET utf8 COLLATE utf8_bin,
-  `card_image` longblob
+  `card_image` text CHARACTER SET utf8 COLLATE utf8_bin
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='This is a table to store the user created cards.';
 
 --
