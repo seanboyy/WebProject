@@ -90,7 +90,6 @@
 					$conn->real_query("SELECT COUNT(*) FROM `custom_cards`");
 					$count_res = $conn->use_result();
 					$count = $count_res->fetch_all(MYSQLI_NUM)[0];
-					echo($count[0]);
 					if($count > 0){
 						$conn->real_query("SELECT max(card_id) FROM `custom_cards`");
 						$cardid_res = $conn->use_result();
