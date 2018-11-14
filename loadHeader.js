@@ -29,48 +29,36 @@ $(document).ready(function(){
 });
 
 function openOptions(){
-	if ($("#optionsArea").length || $("#tabsArea").length) { //aka if the element with id "optionsArea" exists
+	if ($("#tabsArea").length) { //aka if the element with id "tabsArea" exists
+		$("#selectionArea").empty();
+	}
+	
+	if ($("#optionsArea").length) { //aka if the element with id "optionsArea" exists
 		$("#selectionArea").empty();
 	}
 	else {
 		$("#selectionArea").append(
-		"<div id=\"optionsArea\"  class=\"insideSelection\">" +
-			"<p>Options Open</p>" +
+		"<div id=\"optionsArea\"  class=\"text-center insideSelection\">" +
+			"<a href=\"index.html\">Open Options</a>" +
 		"</div>"
 		);
 	}
 }
     
 function openTabs(){
-	if ($("#optionsArea").length || $("#tabsArea").length) { //aka if the element with id "optionsArea" exists
+	if ($("#optionsArea").length) { //aka if the element with id "optionsArea" exists
+		$("#selectionArea").empty();
+	}
+	
+	if ($("#tabsArea").length) { //aka if the element with id "tabsArea" exists
 		$("#selectionArea").empty();
 	}
 	else {
 		$("#selectionArea").append(
-		"<div id=\"tabsArea\"  class=\"insideSelection\">" +
-			"<p>Tabs Open</p>" +
+		"<div id=\"tabsArea\"  class=\"text-center insideSelection\">" +
+			"<a href=\"card-upload.html\">Card Upload </a>" +
+			"<a href=\"index.html\">Main Page</a>" +
 		"</div>"
 		);
 	}
-	//<a href=\"card-upload.html\">
 }
-//<button type="button" id="btn-add">Add Row</button>
-
-
-	
-	/*
-    //var numCols = $("#dyn-list").find("th").length;
-    
-	var list = $("#dyn-list").find("li");
-	
-    var last = list.last();
-    
-	var newVal = parseInt(last.text()) + parseInt(last.prev().text());
-	
-    // The string given as the argument to $ is for
-    //     a table row consisting of -- in each cell
-    var newRow = ("<li>" + newVal + "</li>");  // If not using attr, remove the "$"
-    
-    //newRow.attr("id", "row-" + String(0)); // Used to add an id to a particular row - used to interact with a given row
-    
-    $("#dyn-list").append(newRow);*/
