@@ -17,14 +17,14 @@
 			// Check that we received a POST request
 			if( $_SERVER['REQUEST_METHOD'] === 'POST' )
 			{
-				if(!isset($_POST["card_name"]) || !is_string($_POST["card_name"])) {}
-				if(!isset($_POST["mana_cost"]) || !is_string($_POST["mana_cost"])) {}
+				if(!isset($_POST["card-name"]) || !is_string($_POST["card-name"])) {}
+				if(!isset($_POST["mana-cost"]) || !is_string($_POST["mana-cost"])) {}
 				if(!isset($_POST["type-line"]) || !is_string($_POST["type-line"])) {}
 				if(!isset($_POST["rarity"]) || !is_int($_POST["rarity"])) {}
-				if(!isset($_POST["rules"]) || !is_string($_POST["rules"])) {}
+				if(!isset($_POST["rules-text"]) || !is_string($_POST["rules-text"])) {}
 				if(!isset($_POST["power"]) || !is_int($_POST["power"])) {}
 				if(!isset($_POST["toughness"]) || !is_int($_POST["toughness"])) {}
-				if(!isset($_POST["description"]) || !is_string($_POST["string"])) {}
+				if(!isset($_POST["description"]) || !is_string($_POST["description"])) {}
 				
 				// We have a customer number
 				// Search the DB for account matches
@@ -41,8 +41,20 @@
 				}
 				else
 				{
-					$stmt = $conn->prepare("INSERT INTO custom_cards (card_name, mana_cost, type, rarity, rules, power, toughness, creator_id, description)VALUES ?, ?, ?, ?, ?, ?, ?, ?, ?, ?");
-					$stmt->bind_param("sssisiis", $_POST["card_name"], $_POST["mana_cost"], $_POST["type-line"], $_POST["rarity"], $_POST["rules"], $_POST["power"], $_POST["toughness"], -1, $_PUSH["description"]);
+					$cardid = 0;
+					$conn->real_query("SELECT COUNT(*) FROM `custom_cards`");
+					$count_res = $conn->use_result();
+					$count = $count_res->fetch_all(MYSQLI_NUM);
+					if($count[0] > 0){
+						$cardid = $conn->real_query("SELECT max(card_id) FROM `custom_cards`");
+						$cardid_res = $conn->use_result();
+						$cardid = $cardid_res->fetch_all(MYSQLI_NUM)[0];
+					}
+					$cardid++;
+					$userid = -1;
+					$picloc = "";
+					$stmt = $conn->prepare("INSERT INTO `custom_cards` VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+					$stmt->bind_param("isssisiiiss", $cardid, $_POST["card-name"], $_POST["mana-cost"], $_POST["type-line"], $_POST["rarity"], $_POST["rules-text"], $_POST["power"], $_POST["toughness"], $userid, $_POST["description"], $picloc);
 					$stmt->execute();
 				}
 			}
