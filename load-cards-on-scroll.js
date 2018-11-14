@@ -11,7 +11,7 @@ var lastScrollTop = 0;
 $(document).scroll(function(){
 	var st = $(this).scrollTop();
 	if (st > lastScrollTop){
-		if(funqueue.length < 10){
+		if(funqueue.length < 5){
 			funqueue.push(loadImage);
 		}
 	}
