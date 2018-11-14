@@ -90,15 +90,16 @@
 					$conn->real_query("SELECT COUNT(*) FROM `custom_cards`");
 					$count_res = $conn->use_result();
 					$count = $count_res->fetch_all(MYSQLI_NUM)[0];
+					echo($count[0]);
 					if($count > 0){
-						$cardid = $conn->real_query("SELECT max(card_id) FROM `custom_cards`");
+						$conn->real_query("SELECT max(card_id) FROM `custom_cards`");
 						$cardid_res = $conn->use_result();
 						$cardid = $cardid_res->fetch_all(MYSQLI_NUM)[0];
 					}
-					$cardid++;
+					$cardid[0]++;
 					$userid = -1;
 					$stmt = $conn->prepare("INSERT INTO `custom_cards` VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-					$stmt->bind_param("isssisiiiss", $cardid, $_POST["card-name"], $_POST["mana-cost"], $_POST["type-line"], $_POST["rarity"], $_POST["rules-text"], $_POST["power"], $_POST["toughness"], $userid, $_POST["description"], $picloc);
+					$stmt->bind_param("isssisiiiss", $cardid[0], $_POST["card-name"], $_POST["mana-cost"], $_POST["type-line"], $_POST["rarity"], $_POST["rules-text"], $_POST["power"], $_POST["toughness"], $userid, $_POST["description"], $picloc);
 					$stmt->execute();
 				}
 			}

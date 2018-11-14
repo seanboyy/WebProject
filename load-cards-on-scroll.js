@@ -2,12 +2,14 @@ var funqueue = [];
 var imgIdx = 0;
 
 $(document).ready(function(){
-	for(var i = 0; i < 1; ++i){
+	funqueue.push(loadImage);
+	/*for(var i = 0; i < 1; ++i){
 		funqueue.push(loadImage);
 		//funqueue.push(sleep);
-	}
+	}*/
 });
 
+/*
 var lastScrollTop = 0;
 $(document).scroll(function(){
 	var st = $(this).scrollTop();
@@ -19,9 +21,15 @@ $(document).scroll(function(){
 	}
 	lastScrollTop = st;
 });
+*/
 
 function loadImage(){
-	loadImages(1);
+	var url = "/WebProject/get-images.php";
+	var jqxhr = $.get(url);
+	jqxhr.done(function(data){
+		var _images = data.split(/<.?body>/);
+		$("#cards").append(_images[1]);
+	});
 }
 
 function sleep(){
@@ -29,16 +37,6 @@ function sleep(){
 }
 
 function loadImages(count){
-	var url = "/WebProject/card_images/";
-	var jqxhr = $.get(url);
-	jqxhr.done(function(data){
-		var _images = data.match(/href="(.*?\.jpg|.*?\.png|.*?\.jpeg)"/gi);
-		for(var i = 0; i < _images.length; ++i){
-			var tokens = _images[i].split("\"");
-			var imgsrc = url + tokens[1];
-			$('#cards').append('<img alt="' + tokens[1] + '" src="' + imgsrc + '" class="cardFormat"/>');
-		}
-	});
 	/*
 	for(; imgIdx < count && imgIdx < files.length; ++imgIdx){
 		
