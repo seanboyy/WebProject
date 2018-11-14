@@ -21,7 +21,7 @@
 			$servername = "127.0.0.1";
 			$username = "root";
 			$password = "";
-			$dbname = "web_project";
+			$dbname = "card_database";
 
 			// These hold the values we will output in the JSON
 			$statusMessage = "";
@@ -30,8 +30,8 @@
 			// Check that we received a POST request
 			if( $_SERVER['REQUEST_METHOD'] === 'POST' )
 			{
-				if(!isset($_POST["card_name"]) && is_string($_POST["card_name"])) {}
-				if(!isset($_POST["mana_cost"]) && is_string($_POST["mana_cost"])) {}
+				if(!isset($_POST["card-name"]) && is_string($_POST["card_name"])) {}
+				if(!isset($_POST["mana-cost"]) && is_string($_POST["mana_cost"])) {}
 				if(!isset($_POST["type-line"])) {}
 				if(!isset($_POST["rarity"])) {}
 				if(!isset($_POST["rules"])) {}
@@ -39,9 +39,9 @@
 				if(!isset($_POST["toughness"])) {}
 				if(!isset($_POST["description"])) {}
 				
-				$customer_no = intval($_GET["customer_no"]);
-				if($customer_no !== 0)
-				{
+				//$customer_no = intval($_GET["customer_no"]);
+				//if($customer_no !== 0)
+				//{
 					// We have a customer number
 					// Search the DB for account matches
 					// TODO: set $statusMessage and $accounts
@@ -58,26 +58,25 @@
 					else
 					{
 						$stmt = $conn->prepare("INSERT INTO custom_cards (card_name, mana_cost, type, rarity, rules, power, toughness, creator_id, description)VALUES ?, ?, ?, ?, ?, ?, ?, ?, ?, ?");
-						$stmt->bind_param("i", $customer_no);
+						//$stmt->bind_param("i", $customer_no);
 						$stmt->execute();
 						// Array to hold account information
 						$accounts = array();
 						$res = $stmt->get_result();
 					}
-				}
-				else
-				{
-					$statusMessage = "Invalid customer number: " . $_GET["customer_no"];
-				}
+				//}
+				//else
+				//{
+				//	$statusMessage = "Invalid customer number: " . $_GET["customer_no"];
+				//}
 			}
-			else
+			/*else
 			{
 				$statusMessage = "No customer number provided.";
-			}
-			}
+			}*/
 			else
 			{
-				$statusMessage = "No GET request received.";
+				$statusMessage = "No POST request received.";
 			}
 
 			// TODO: Format and echo the result in JSON

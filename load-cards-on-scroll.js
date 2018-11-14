@@ -34,7 +34,7 @@ function loadImages(count){
 		var jqxhr = $.get(url);
 		jqxhr.done(function(data){
 			var obj = data;
-			imgsrc = obj.image_uris.small;
+			imgsrc = obj.image_uris.normal;
 			imgsrc = imgsrc.split("?")[0];
 			$('#cards').append('<img alt="cardImage" src="' + imgsrc + '" class="cardFormat"/>');
 		});
