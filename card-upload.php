@@ -16,7 +16,7 @@
 
 			// Check that we received a POST request
 			if( $_SERVER['REQUEST_METHOD'] === 'POST' )
-			{
+			{	
 				if(!isset($_POST["card-name"]) || !is_string($_POST["card-name"])) {}
 				if(!isset($_POST["mana-cost"]) || !is_string($_POST["mana-cost"])) {}
 				if(!isset($_POST["type-line"]) || !is_string($_POST["type-line"])) {}
@@ -25,6 +25,48 @@
 				if(!isset($_POST["power"]) || !is_int($_POST["power"])) {}
 				if(!isset($_POST["toughness"]) || !is_int($_POST["toughness"])) {}
 				if(!isset($_POST["description"]) || !is_string($_POST["description"])) {}
+
+				$fileInfo = $_FILES["card-img"];
+				if (!empty($fileInfo["name"]))
+				{
+					$validMime = ["image/jpeg", "image/png"];
+					$maxFileSize = 2000000;
+					
+					if($fileInfo["error"] != UPLOAD_ERR_OK)
+					{
+						// an error occurred
+						echo("An error occured uploading the file");
+					} 
+					else if (!in_array($fileInfo["type"], $validMime))
+					{
+						echo("File type not supported");
+					}
+					else if ($fileInfo["size"] > $maxFileSize)
+					{
+						echo("File is too large, max size is 2MB");
+					}
+					else
+					{
+						// Move the file from temporary location
+						if ($fileInfo["type"] == "image/jpeg")
+						{
+							$extension = ".jpg";
+						}
+						else if ($fileInfo["type"] == "image/png")
+						{
+							$extension = ".png";
+						}
+						$dest = "./card_images/" . $_POST["card-name"] . $extension;
+						if (move_uploaded_file($fileInfo["tmp_name"], $dest))
+						{
+							echo("File uploaded successfully");
+						}
+						else 
+						{
+							echo("There was a problem uploading the file");
+						}
+					}
+				}
 				
 				// We have a customer number
 				// Search the DB for account matches
