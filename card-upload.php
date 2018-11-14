@@ -27,6 +27,8 @@
 				if(!isset($_POST["description"]) || !is_string($_POST["description"])) {}
 
 				$fileInfo = $_FILES["card-img"];
+				
+				$picloc = "";
 				if (!empty($fileInfo["name"]))
 				{
 					$validMime = ["image/jpeg", "image/png"];
@@ -59,6 +61,7 @@
 						$dest = "./card_images/" . $_POST["card-name"] . $extension;
 						if (move_uploaded_file($fileInfo["tmp_name"], $dest))
 						{
+							$picloc = $dest;
 							echo("File uploaded successfully");
 						}
 						else 
@@ -94,7 +97,6 @@
 					}
 					$cardid++;
 					$userid = -1;
-					$picloc = "/card_imgs/";
 					$stmt = $conn->prepare("INSERT INTO `custom_cards` VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 					$stmt->bind_param("isssisiiiss", $cardid, $_POST["card-name"], $_POST["mana-cost"], $_POST["type-line"], $_POST["rarity"], $_POST["rules-text"], $_POST["power"], $_POST["toughness"], $userid, $_POST["description"], $picloc);
 					$stmt->execute();
@@ -102,7 +104,7 @@
 			}
 			else
 			{
-				$statusMessage = "No PUSH request received.";
+				$statusMessage = "No POST request received.";
 			}
 			
 		?>

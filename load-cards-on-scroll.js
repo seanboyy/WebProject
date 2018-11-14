@@ -1,7 +1,8 @@
 var funqueue = [];
+var imgIdx = 0;
 
 $(document).ready(function(){
-	for(var i = 0; i < 36; ++i){
+	for(var i = 0; i < 1; ++i){
 		funqueue.push(loadImage);
 		//funqueue.push(sleep);
 	}
@@ -28,6 +29,25 @@ function sleep(){
 }
 
 function loadImages(count){
+	var url = "/WebProject/card_images/";
+	var jqxhr = $.get(url);
+	jqxhr.done(function(data){
+		var _images = data.match(/href="(.*?\.jpg|.*?\.png|.*?\.jpeg)"/gi);
+		for(var i = 0; i < _images.length; ++i){
+			var tokens = _images[i].split("\"");
+			var imgsrc = url + tokens[1];
+			$('#cards').append('<img alt="' + tokens[1] + '" src="' + imgsrc + '" class="cardFormat"/>');
+		}
+	});
+	/*
+	for(; imgIdx < count && imgIdx < files.length; ++imgIdx){
+		
+	}
+	*/
+}
+
+/*
+function loadImages(count){
 	for(var i = 0; i < count; ++i){
 		var imgsrc;
 		var url = 'https://api.scryfall.com/cards/random';
@@ -41,6 +61,7 @@ function loadImages(count){
 		sleep(100);
 	}
 }
+*/
 
 function sleep(milliseconds) {
 	var start = new Date().getTime();
