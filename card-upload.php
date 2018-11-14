@@ -108,5 +108,6 @@
 			}
 			
 		?>
+		<p><a href="./">Back to main page</a></p>
 	</body>
 </html>

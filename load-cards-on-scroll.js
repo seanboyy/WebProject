@@ -1,29 +1,28 @@
 var funqueue = [];
-var imgIdx = 0;
 
 $(document).ready(function(){
-	funqueue.push(loadImage);
-	/*for(var i = 0; i < 1; ++i){
+	funqueue.push(loadImageOurs);
+	for(var i = 0; i < 10; ++i){
 		funqueue.push(loadImage);
-		//funqueue.push(sleep);
-	}*/
+	}
 });
 
-/*
 var lastScrollTop = 0;
 $(document).scroll(function(){
 	var st = $(this).scrollTop();
 	if (st > lastScrollTop){
 		if(funqueue.length < 10){
 			funqueue.push(loadImage);
-			//funqueue.push(sleep);
 		}
 	}
 	lastScrollTop = st;
 });
-*/
 
 function loadImage(){
+	loadImages(1);
+}
+
+function loadImageOurs(){
 	var url = "/WebProject/get-images.php";
 	var jqxhr = $.get(url);
 	jqxhr.done(function(data){
@@ -36,15 +35,6 @@ function sleep(){
 	sleep(100);
 }
 
-function loadImages(count){
-	/*
-	for(; imgIdx < count && imgIdx < files.length; ++imgIdx){
-		
-	}
-	*/
-}
-
-/*
 function loadImages(count){
 	for(var i = 0; i < count; ++i){
 		var imgsrc;
@@ -59,7 +49,6 @@ function loadImages(count){
 		sleep(100);
 	}
 }
-*/
 
 function sleep(milliseconds) {
 	var start = new Date().getTime();
