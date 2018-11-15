@@ -3,10 +3,14 @@
 	<head>
 		<!-- use the same header as every other page, except the title is changed as appropriate --> 
 		<title>Magic Maker - Upload Custom Card</title>
+		
 		<link type="text/css" href="style.css" rel="stylesheet"/>
 		<link rel="shortcut icon" href="icon.png"/>
+				
 		<script type="text/javascript" src="http://code.jquery.com/jquery-3.1.0.min.js"></script>
+		<script type="text/javascript" src="load-cards-on-scroll.js"></script>
 		<script type="text/javascript" src="loadHeader.js"></script>
+		
 		<!-- For Bootstrap: -->
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -18,80 +22,63 @@
 		<!-- Header is dynamically loaded using AJAX-->
 		<div id="header" class="row"></div>
 
-		<form method="POST" action="card-upload.php" enctype="multipart/form-data">
-			<fieldset>
-			<div class="right_side">
-				<legend>Upload a Card</legend>
-				<table>
-					<tr>
-						<td><label for="f-card-img">Card Image: </label></td>
-						<td><input type="file" name="card-img" id="f-card-img"/></td>
-					</tr>
-					<tr>
-						<td><label for="f-card-name">Card Name: </label></td>
-						<td><input type="text" name="card-name" id="f-card-name"/></td>
-					</tr>
-					<tr>
-						<td><label for="f-mana-cost">Mana Cost: </label></td>
-						<td><input type="text" name="mana-cost" id="f-mana-cost"/></td>
-					</tr>
-					<!-- Not Being Used Currently 
-					<tr>
-						<td><label for="f-color">Color(s): </label></td>
-						<td><input type="checkbox" name="color[]" value="White" id="f-color"/>White
-							<input type="checkbox" name="color[]" value="Blue" id="f-color"/>Blue
-							<input type="checkbox" name="color[]" value="Black" id="f-color"/>Black
-							<input type="checkbox" name="color[]" value="Red" id="f-color"/>Red
-							<input type="checkbox" name="color[]" value="Green" id="f-color"/>Green</td>
-					</tr>
-					-->
-					<tr>
-						<td><label for="f-type-line">Type Line: </label></td>
-						<td><input type="text" name="type-line" id="f-type-line"/></td>
-					</tr>
-					<tr>
-						<td><label for="f-rarity">Rarity: </label></td>
-						<td><select name="rarity" id="f-rarity">
-							<option value="1">--Not Selected--</option>
-							<option value="2">Token</option>
-							<option value="3">Basic Land</option>
-							<option value="4">Common</option>
-							<option value="5">Uncommon</option>
-							<option value="6">Rare</option>
-							<option value="7">Mythic Rare</option>
-						</select></td>
-					</tr>
-					<tr>
-						<td><label for="f-rules-text">Rules Text:</label></td>
-						<td><textarea id="f-rules-text" name="rules-text" rows="3" cols="25"></textarea></td>
-					</tr>
-					<tr>
-						<td><label for="f-power">Power: </label></td>
-						<td><input type="number" name="power" id="f-power" min="-100"/></td>
-					</tr>
-					<tr>
-						<td><label for="f-toughness">Toughness: </label></td>
-						<td><input type="number" name="toughness" id="f-toughness" min="-100"/></td>
-					</tr>
-					<!--
-					<tr>
-						<td><label for="f-artist">Artist Credit: </label></td>
-						<td><input type="text" name="artist" id="f-artist"/></td>
-					</tr>
-					-->
-				</table>
-			</fieldset>
-			<fieldset>
-				<legend>Card Description</legend>
-				<table>
-					<tr>
-						<td><label for="f-description">Card Description:</label></td>
-						<td><textarea id="f-description" name="description" rows="4" cols="25" placeholder="Give a short description of your thought process in creating this card. This is entirely optional."></textarea></td>
-					</tr>
-				</table>
-			</fieldset>
-			<input type="submit" value="Submit Card" />
-		</form>
+		<div class="row">
+			<div class="col-sm-2 text-center">
+			</div>
+			<div class="col-sm-3 text-center">
+				<div class="cardImageDisplay">
+					<img alt="Card Image"/>
+				</div>
+			</div>
+			<div class="col-sm-7 text-center">
+			<form method="POST" action="card-upload.php" enctype="multipart/form-data">
+							<label for="f-card-img">Card Image: </label>
+							<input class="center" type="file" name="card-img" id="f-card-img"/><br />	
+							<label for="f-card-name">Card Name: </label>
+							<input type="text" name="card-name" id="f-card-name"/><br />	
+							<label for="f-mana-cost">Mana Cost: </label>
+							<input type="text" name="mana-cost" id="f-mana-cost"/><br />	
+						<!-- Not Being Used Currently 
+						
+							<label for="f-color">Color(s): </label>
+							<input type="checkbox" name="color[]" value="White" id="f-color"/>White
+								<input type="checkbox" name="color[]" value="Blue" id="f-color"/>Blue
+								<input type="checkbox" name="color[]" value="Black" id="f-color"/>Black
+								<input type="checkbox" name="color[]" value="Red" id="f-color"/>Red
+								<input type="checkbox" name="color[]" value="Green" id="f-color"/>Green
+						
+						-->
+							<label for="f-type-line">Type Line: </label>
+							<input type="text" name="type-line" id="f-type-line"/><br />	
+							<label for="f-rarity">Rarity: </label>	
+							<select name="rarity" id="f-rarity">
+								<option value="1">--Not Selected--</option>
+								<option value="2">Token</option>
+								<option value="3">Basic Land</option>
+								<option value="4">Common</option>
+								<option value="5">Uncommon</option>
+								<option value="6">Rare</option>
+								<option value="7">Mythic Rare</option>
+							</select><br />	
+							<label for="f-rules-text">Rules Text:</label>
+							<textarea id="f-rules-text" name="rules-text" rows="3" cols="25"></textarea><br />	
+							<label for="f-power">Power/Toughness: </label>
+							<input class="smallInput" type="number" name="power" id="f-power" min="-100"/>
+							<input class="smallInput" type="number" name="toughness" id="f-toughness" min="-100"/><br />	
+						<!--
+						
+							<label for="f-artist">Artist Credit: </label>
+							<input type="text" name="artist" id="f-artist"/>
+						
+						-->
+						
+							<label for="f-description">Card Description:</label>
+					<textarea id="f-description" name="description" rows="4" cols="25" placeholder="Give a short description of your thought process in creating this card. This is entirely optional."></textarea><br />	
+						
+					
+				<input class="smallInput" type="submit" value="Submit Card" />
+			</form>
+			</div>
 		</div>
 	</body>
 </html>

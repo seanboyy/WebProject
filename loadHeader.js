@@ -39,7 +39,7 @@ function openOptions(){
 	else {
 		$("#selectionArea").append(
 		"<div id=\"optionsArea\"  class=\"text-center insideSelection\">" +
-			"<a href=\"index.html\">Open Options</a>" +
+			"<a href=\"login.html\">Sign In</a>" +
 		"</div>"
 		);
 	}
@@ -56,8 +56,8 @@ function openTabs(){
 	else {
 		$("#selectionArea").append(
 		"<div id=\"tabsArea\"  class=\"text-center insideSelection\">" +
-			"<a href=\"card-upload.html\">Card Upload </a>" +
 			"<a href=\"index.html\">Main Page</a>" +
+			"<a href=\"card-upload.html\">Card Upload </a>"	+
 		"</div>"
 		);
 	}
