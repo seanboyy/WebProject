@@ -33,7 +33,8 @@ CREATE TABLE `user_data` (
   `username` text CHARACTER SET utf8 COLLATE utf8_bin,
   `email` text CHARACTER SET utf8 COLLATE utf8_bin,
   `password` text CHARACTER SET utf8 COLLATE utf8_bin,
-  `points` int(11) DEFAULT NULL
+  `points` int(11) DEFAULT NULL,
+  `is_admin` tinyint(1) DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='This table will be used to store all user data.';
 
 --
