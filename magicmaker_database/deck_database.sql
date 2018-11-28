@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 28, 2018 at 07:59 PM
+-- Generation Time: Nov 29, 2018 at 12:07 AM
 -- Server version: 10.1.34-MariaDB
 -- PHP Version: 7.2.8
 
@@ -25,26 +25,17 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `posts`
+-- Table structure for table `deck_database`
 --
 
-CREATE TABLE `posts` (
-  `user_id` int(11) DEFAULT NULL,
-  `post_id` int(11) NOT NULL,
-  `post_text` text CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
-  `post_points` int(11) DEFAULT NULL,
-  `card_id` int(10) DEFAULT NULL
+CREATE TABLE `deck_database` (
+  `deck_id` int(11) DEFAULT NULL,
+  `cards` text CHARACTER SET utf8 COLLATE utf8_bin,
+  `description` text CHARACTER SET utf8 COLLATE utf8_bin,
+  `creator_id` int(11) DEFAULT NULL,
+  `title` int(11) DEFAULT NULL,
+  `points` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `posts`
---
-ALTER TABLE `posts`
-  ADD PRIMARY KEY (`post_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

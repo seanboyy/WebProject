@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 28, 2018 at 07:59 PM
+-- Generation Time: Nov 29, 2018 at 12:06 AM
 -- Server version: 10.1.34-MariaDB
 -- PHP Version: 7.2.8
 
@@ -32,7 +32,8 @@ CREATE TABLE `comments` (
   `comment_id` int(11) NOT NULL,
   `comment_text` text CHARACTER SET utf8 COLLATE utf8_bin,
   `user_id` int(11) DEFAULT NULL,
-  `post_id` int(11) DEFAULT NULL
+  `post_id` int(11) DEFAULT NULL,
+  `is_card` tinyint(1) DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
