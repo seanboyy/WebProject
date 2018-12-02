@@ -1,9 +1,9 @@
 var funqueue = [];
 
 $(document).ready(function(){
-	for(var i = 0; i < 36; ++i){
+	funqueue.push(loadImageOurs);
+	for(var i = 0; i < 10; ++i){
 		funqueue.push(loadImage);
-		//funqueue.push(sleep);
 	}
 });
 
@@ -11,9 +11,8 @@ var lastScrollTop = 0;
 $(document).scroll(function(){
 	var st = $(this).scrollTop();
 	if (st > lastScrollTop){
-		if(funqueue.length < 10){
+		if(funqueue.length < 5){
 			funqueue.push(loadImage);
-			//funqueue.push(sleep);
 		}
 	}
 	lastScrollTop = st;
@@ -21,6 +20,15 @@ $(document).scroll(function(){
 
 function loadImage(){
 	loadImages(1);
+}
+
+function loadImageOurs(){
+	var url = "/WebProject/get-images.php";
+	var jqxhr = $.get(url);
+	jqxhr.done(function(data){
+		var _images = data.split(/<.?body>/);
+		$("#cards").append(_images[1]);
+	});
 }
 
 function sleep(){
@@ -34,7 +42,7 @@ function loadImages(count){
 		var jqxhr = $.get(url);
 		jqxhr.done(function(data){
 			var obj = data;
-			imgsrc = obj.image_uris.small;
+			imgsrc = obj.image_uris.normal;
 			imgsrc = imgsrc.split("?")[0];
 			$('#cards').append('<img alt="cardImage" src="' + imgsrc + '" class="cardFormat"/>');
 		});

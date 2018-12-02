@@ -3,6 +3,7 @@
 	padding-top:15px;
 	color:#B22222;
 	font-family: 'Milonga', cursive;
+	margin:0px;
 }
 .headIcon{
 	max-height:100px;
@@ -28,22 +29,48 @@
 }
 .cardFormat {
 	margin:0px 1% 1% 1%;
-	max-height:210px;
-	max-width:150px;
+	max-height:272px;
+	max-width:195px;
 }
+
 * {
 	background-color:darkgray;
+}
+
+a {
+	font-size:200%;
+	margin:0px 10px;
+	color:#A22222 !important;
 }
 
 body {
 	min-width: 500px; 
 	margin: 0 auto;
 }
-.right_side{
-	text-align: right;
-	padding: .5rem;
+label {
+	margin:0px  !important;
+	width:20%;
+	text-align:right !important;
 }
-
-.right_side table{
-	float: right;
+.center {
+	margin: 0 auto !important;
+}
+input, select, textarea {
+	width:40%;
+}
+.smallInput {
+	width:19.8% !important;
+}
+.cardImageDisplay {
+	width:20vw;
+	height:30vw;
+	max-height:450px;
+	max-width:300px;
+	outline: 5px solid gray;
+}
+.leftLine {
+	border-left: 5px solid gray;
+}
+.rightLine {
+	border-right: 5px solid gray;
 }

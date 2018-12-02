@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 12, 2018 at 03:02 AM
+-- Generation Time: Nov 29, 2018 at 12:06 AM
 -- Server version: 10.1.34-MariaDB
 -- PHP Version: 7.2.8
 
@@ -25,32 +25,26 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `custom_cards`
+-- Table structure for table `comments`
 --
 
-CREATE TABLE `custom_cards` (
-  `card_id` int(10) NOT NULL,
-  `card_name` text CHARACTER SET utf8 COLLATE utf8_bin,
-  `mana_cost` int(7) DEFAULT NULL,
-  `type` text CHARACTER SET utf8 COLLATE utf8_bin,
-  `rarity` int(11) DEFAULT NULL,
-  `rules` text CHARACTER SET utf8 COLLATE utf8_bin,
-  `power` int(11) DEFAULT NULL,
-  `toughness` int(11) DEFAULT NULL,
-  `creator_id` int(10) DEFAULT NULL,
-  `description` text CHARACTER SET utf8 COLLATE utf8_bin,
-  `card_image` text CHARACTER SET utf8 COLLATE utf8_bin
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='This is a table to store the user created cards.';
+CREATE TABLE `comments` (
+  `comment_id` int(11) NOT NULL,
+  `comment_text` text CHARACTER SET utf8 COLLATE utf8_bin,
+  `user_id` int(11) DEFAULT NULL,
+  `post_id` int(11) DEFAULT NULL,
+  `is_card` tinyint(1) DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `custom_cards`
+-- Indexes for table `comments`
 --
-ALTER TABLE `custom_cards`
-  ADD PRIMARY KEY (`card_id`);
+ALTER TABLE `comments`
+  ADD PRIMARY KEY (`comment_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
