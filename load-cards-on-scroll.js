@@ -11,17 +11,29 @@ $(document).ready(function(){
 
 var hovering = false;
 
+var oldHTML;
+
 function doEntry(cardNum, editSpan){
 	hovering = true;
+	oldHTML = editSpan.innerHTML;
 	setTimeout(function(){
 		if(hovering){
-			editSpan.innerHTML
+			var newcontent = document.createElement('span');
+			var url = "/WebProject/get-card-data.php?id=" + cardNum;
+			var jqxhr = $.get(url);
+			jqxhr.done(function(data){
+				var desc = data.split(/<.?body>/);
+				newcontent.innerHTML = desc[1];
+			});
+			
+			editSpan.appendChild(newcontent);
 		}
-	}, 1000);
+	}, 500);
 }
 
-function doLeave(){
+function doLeave(editSpan){
 	hovering = false;
+	editSpan.innerHTML = oldHTML;
 }
 
 /*

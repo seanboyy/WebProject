@@ -84,3 +84,7 @@ input, select, textarea {
 .rightLine {
 	border-right: 5px solid gray;
 }
+
+#cococardso {
+	background-color:white;
+}
