@@ -1,6 +1,8 @@
 function updateSearch(){
-    var url = 'https://api.scryfall.com/cards/search?q=' + htmlify($("#search").text);
+	console.log("Searching");
+    var url = 'https://api.scryfall.com/cards/search?q=' + htmlify($("#search").text());
     
+	console.log(url);
     // second arg specifies the query parameters for the GET request
     var jqxhr = $.get(url);
     
@@ -54,6 +56,7 @@ function htmlify(inputString){
 	outputString.replace(';', '%3B');
 	outputString.replace('=', '%3D');
 	outputString.replace(' ', '+');
+	console.log(outputString);
 	return outputString;
 }
 
@@ -68,8 +71,8 @@ function makeDelay(ms) {
 
 $(document).ready(function(){
 	console.log("Ready");
-	var delay = makeDelay(250);
-	$("#q").on("keyup change", function(){delay(updateSearch);});
+	var delay = makeDelay(10);
+	$("#search").on("keyup change", function(){delay(updateSearch);});
 	
   //$("#q").on("keyup change", updateSearch);
 });
