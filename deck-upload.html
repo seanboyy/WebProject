@@ -9,6 +9,8 @@
 		
 		<script type="text/javascript" src="load-cards-on-scroll.js"></script>
 		<script type="text/javascript" src="loadHeader.js"></script>
+		<!--To run the drag and drop-->
+		<script type="text/javascript" src="drag-drop.js"></script>
 		
 		<!-- For Bootstrap: -->
 		<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -25,13 +27,18 @@
 				<form method="POST" action="deck-upload.php" enctype="multipart/form-data">
 					<textarea id="f-search" name="description" class="bigInput text-center" rows="1" cols="25" placeholder="Deck Name"></textarea>	
 					<br/>
+					<div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+					<br/>
 					<div id="cards" class="deckView text-center"></div>
 					<br/>
 					<input class="bigInput" type="submit" value="Submit" />
 				</form>
 			</div>
 			<div class="col-sm-8 text-center">
-				<textarea id="search" name="description" class="bigInput text-center" rows="1" cols="25" placeholder="Search..."></textarea>	
+				<textarea id="search" name="description" class="bigInput text-center" rows="1" cols="25" placeholder="Search..."></textarea>
+				
+				<img id="drag1" src="./card_images/Snowslide.png" draggable="true" ondragstart="drag(event)" width="336" height="69">
+				
 				<div id="search-results" class="deckView text-center"></div>
 			</div>
 	</body>

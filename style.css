@@ -94,3 +94,8 @@ input, select, textarea {
 #cococardso {
 	background-color:white;
 }
+#div1 {
+    width: 350px;
+    height: 70px;
+    border: 1px solid black;
+}
