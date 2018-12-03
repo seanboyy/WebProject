@@ -1,5 +1,5 @@
-function updateSearch(searchString){
-    var url = 'https://api.scryfall.com/cards/search?q=' + htmlify(searchString);
+function updateSearch(){
+    var url = 'https://api.scryfall.com/cards/search?q=' + htmlify($("#search").text);
     
     // second arg specifies the query parameters for the GET request
     var jqxhr = $.get(url);
