@@ -11,7 +11,7 @@
 				$result = $conn->query("SELECT `card_image` FROM `custom_cards`");
 				$reversed = array_reverse($result->fetch_all());
 				for($i = 0; $i < count($reversed); ++$i){
-					echo "<img alt='".$reversed[$i][0]."' src='".$reversed[$i][0]."' class='cardFormat'/>";
+					echo "<span onmouseenter='doEntry()' onmouseleave='doLeave()'><img alt='".$reversed[$i][0]."' src='".$reversed[$i][0]."' class='cardFormat'/></span>";
 				}
 			}
 		?>

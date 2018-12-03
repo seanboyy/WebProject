@@ -2,11 +2,33 @@ var funqueue = [];
 
 $(document).ready(function(){
 	funqueue.push(loadImageOurs);
+	/*
 	for(var i = 0; i < 10; ++i){
 		funqueue.push(loadImage);
 	}
+	*/
 });
 
+var hovering = false;
+
+function doEntry(){
+	hovering = true;
+	setTimeout(function(){
+		if(hovering){
+			console.log("hello");
+		}
+		else{
+			console.log("where did you go?");
+		}
+	}, 1000);
+}
+
+function doLeave(){
+	hovering = false;
+	console.log("goodbye");
+}
+
+/*
 var lastScrollTop = 0;
 $(document).scroll(function(){
 	var st = $(this).scrollTop();
@@ -17,6 +39,7 @@ $(document).scroll(function(){
 	}
 	lastScrollTop = st;
 });
+*/
 
 function loadImage(){
 	loadImages(1);
@@ -63,4 +86,4 @@ function executeQueue(){
 	if(funqueue.length > 0) (funqueue.shift())();
 }
 
-setInterval(executeQueue, 100);
+setInterval(executeQueue, 75);
