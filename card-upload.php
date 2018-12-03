@@ -16,15 +16,15 @@
 
 			// Check that we received a POST request
 			if( $_SERVER['REQUEST_METHOD'] === 'POST' )
-			{	
-				if(!isset($_POST["card-name"]) || !is_string($_POST["card-name"])) {}
-				if(!isset($_POST["mana-cost"]) || !is_string($_POST["mana-cost"])) {}
-				if(!isset($_POST["type-line"]) || !is_string($_POST["type-line"])) {}
-				if(!isset($_POST["rarity"]) || !is_int($_POST["rarity"])) {}
-				if(!isset($_POST["rules-text"]) || !is_string($_POST["rules-text"])) {}
-				if(!isset($_POST["power"]) || !is_int($_POST["power"])) {}
-				if(!isset($_POST["toughness"]) || !is_int($_POST["toughness"])) {}
-				if(!isset($_POST["description"]) || !is_string($_POST["description"])) {}
+			{	$input = $_POST;
+				if(!isset($input["card-name"]) || !is_string($input["card-name"])) {}
+				if(!isset($input["mana-cost"]) || !is_string($input["mana-cost"])) {}
+				if(!isset($input["type-line"]) || !is_string($input["type-line"])) {}
+				if(!isset($input["rarity"]) || !is_int($input["rarity"])) {}
+				if(!isset($input["rules-text"]) || !is_string($input["rules-text"])) {}
+				if(!isset($input["power"]) || !is_int($input["power"])) { $input["power"] = -58; }
+				if(!isset($input["toughness"]) || !is_int($input["toughness"])) { $input["toughness"] = -58; }
+				if(!isset($input["description"]) || !is_string($input["description"])) {}
 
 				$fileInfo = $_FILES["card-img"];
 				
@@ -58,11 +58,11 @@
 						{
 							$extension = ".png";
 						}
-						$dest = "./card_images/" . $_POST["card-name"] . $extension;
+						$dest = "./card_images/" . $input["card-name"] . $extension;
 						if (move_uploaded_file($fileInfo["tmp_name"], $dest))
 						{
 							$picloc = $dest;
-							echo("File uploaded successfully");
+							echo("File uploaded successfully <br>");
 						}
 						else 
 						{
@@ -97,9 +97,17 @@
 					}
 					$cardid[0]++;
 					$userid = -1;
-					$stmt = $conn->prepare("INSERT INTO `custom_cards` VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-					$stmt->bind_param("isssisiiiss", $cardid[0], $_POST["card-name"], $_POST["mana-cost"], $_POST["type-line"], $_POST["rarity"], $_POST["rules-text"], $_POST["power"], $_POST["toughness"], $userid, $_POST["description"], $picloc);
-					$stmt->execute();
+					$points = 0;
+					if ($stmt = $conn->prepare("INSERT INTO `custom_cards` VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"))					
+					{
+						$stmt->bind_param("isssisiiissi", $cardid[0], $input["card-name"], $input["mana-cost"], $input["type-line"], $input["rarity"], $input["rules-text"], $input["power"], $input["toughness"], $userid, $input["description"], $picloc, $points);
+						$stmt->execute();
+				}
+					else
+					{
+						$error = $conn->errno . ' ' . $conn->error;
+						echo $error; 
+					}
 				}
 			}
 			else

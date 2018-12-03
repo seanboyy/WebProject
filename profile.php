@@ -26,7 +26,7 @@
 		<div class="row">
 				
 			<div class="col-sm-4 text-center rightLine">
-				<p>
+				<!--<p>
 				<div class="profileImageDisplay">
 					<img alt="profile Image"/>
 				</div>
@@ -35,7 +35,49 @@
 				<p>Cards Created: </p>
 				<p>Decks Created: </p>
 				<p>Total Upvotes: </p>
+				-->
+				<?php
+			$servername = "127.0.0.1";
+			$username = "root";
+			$password = "";
+			$dbname = "user_data";
+
+			// These hold the values we will output in the JSON
+			$statusMessage = "";
+
+			// Check that we received a POST request
+			if( $_SERVER['REQUEST_METHOD'] === 'POST' )
+			{	
+				if(!isset($_POST["username"]) || !is_string($_POST["username"])) {}
+				if(!isset($_POST["points"]) || !is_int($_POST["points"])) {}
 				
+				$conn = new mysqli($servername, $username, $password, $dbname);
+				// Check connection
+				if ($conn->connect_errno) 
+				{
+					$statusMessage = "Could not connect to database";
+				}
+				else
+				{
+					$userId = 0;
+					$conn->real_query("SELECT COUNT(*) FROM `user_data`");
+					$count_res = $conn->use_result();
+					$count = $count_res->fetch_all(MYSQLI_NUM)[0];
+					if($count > 0){
+						$conn->real_query("SELECT max(user_id) FROM `user_data`");
+						$cardid_res = $conn->use_result();
+						$cardid = $cardid_res->fetch_all(MYSQLI_NUM)[0];
+					}
+					$userId[0]++;
+					$userid = -1;
+					$stmt = $conn->prepare("INSERT INTO `user_data` VALUES (?, ?)");
+					$stmt->bind_param("si", $cardid[0], $_POST["username"], $_POST["points"]);
+					$stmt->execute();
+				}
+			}
+			
+			
+		?>
 			</div>
 			
 			<div class="col-xs-4 text-center">

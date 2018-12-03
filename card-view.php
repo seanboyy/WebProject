@@ -97,11 +97,14 @@
 						echo("<label for=\"rules-text\">Rules Text:</label>");
 						//<!-- Pull rules text from database (may be multiple lines) -->
 						echo(" " . $card[5] . "<br />");
-						echo("<label for=\"power\">Power/Toughness: </label>");
-						//<!-- Pull power from database -->
-						//<!-- Pull toughness from database -->
-						echo(" " . $card[6] . "/");
-						echo($card[7] . "<br />");
+						if ($card[6] != -58 && $card[7] != -58)
+						{
+							echo("<label for=\"power\">Power/Toughness: </label>");
+							//<!-- Pull power from database -->
+							//<!-- Pull toughness from database -->
+							echo(" " . $card[6] . "/");
+							echo($card[7] . "<br />");
+						}
 						echo("<label for=\"description\">Card Description:</label>");
 						//<!-- Pull card description from database -->
 						echo(" " . $card[9] . "<br />");
