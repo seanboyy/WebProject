@@ -73,7 +73,27 @@
 						echo(" " . $card[3] . "<br />");
 						echo("<label for=\"rarity\">Rarity: </label>");	
 						//<!-- Pull rarity from database -->
-						echo(" " . $card[4] . "<br />");
+						switch ($card[4])
+						{
+							case 2:
+								echo(" Token <br />");
+								break;
+							case 3:
+								echo(" Basic Land <br />");
+								break;
+							case 4:
+								echo(" Common <br />");
+								break;
+							case 5:
+								echo(" Uncommon <br />");
+								break;
+							case 6:
+								echo(" Rare <br />");
+								break;
+							case 7: 
+								echo(" Mythic Rare <br />");
+								break;
+						}
 						echo("<label for=\"rules-text\">Rules Text:</label>");
 						//<!-- Pull rules text from database (may be multiple lines) -->
 						echo(" " . $card[5] . "<br />");
