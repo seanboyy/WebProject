@@ -11,21 +11,17 @@ $(document).ready(function(){
 
 var hovering = false;
 
-function doEntry(){
+function doEntry(cardNum, editSpan){
 	hovering = true;
 	setTimeout(function(){
 		if(hovering){
-			console.log("hello");
-		}
-		else{
-			console.log("where did you go?");
+			editSpan.innerHTML
 		}
 	}, 1000);
 }
 
 function doLeave(){
 	hovering = false;
-	console.log("goodbye");
 }
 
 /*
