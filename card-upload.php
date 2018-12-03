@@ -22,8 +22,8 @@
 				if(!isset($input["type-line"]) || !is_string($input["type-line"])) {}
 				if(!isset($input["rarity"]) || !is_int($input["rarity"])) {}
 				if(!isset($input["rules-text"]) || !is_string($input["rules-text"])) {}
-				if(!isset($input["power"]) || !is_int($input["power"])) { $input["power"] = -1; }
-				if(!isset($input["toughness"]) || !is_int($input["toughness"])) { $input["toughness"] = -1; }
+				if(!isset($input["power"]) || !is_int($input["power"])) { $input["power"] = -58; }
+				if(!isset($input["toughness"]) || !is_int($input["toughness"])) { $input["toughness"] = -58; }
 				if(!isset($input["description"]) || !is_string($input["description"])) {}
 
 				$fileInfo = $_FILES["card-img"];

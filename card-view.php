@@ -97,7 +97,7 @@
 						echo("<label for=\"rules-text\">Rules Text:</label>");
 						//<!-- Pull rules text from database (may be multiple lines) -->
 						echo(" " . $card[5] . "<br />");
-						if ($card[6] != -1 && $card[7] != -1)
+						if ($card[6] != -58 && $card[7] != -58)
 						{
 							echo("<label for=\"power\">Power/Toughness: </label>");
 							//<!-- Pull power from database -->
