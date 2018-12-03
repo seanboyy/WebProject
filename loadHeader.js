@@ -40,7 +40,7 @@ function openOptions(){
 		$("#selectionArea").append(
 		"<div id=\"optionsArea\"  class=\"text-center insideSelection\">" +
 			"<a href=\"login.html\">Sign In</a>" +
-			"<a href=\"profile.html\">Profile</a>" +
+			"<a href=\"profile.php\">Profile</a>" +
 		"</div>"
 		);
 	}
