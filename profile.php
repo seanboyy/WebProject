@@ -60,7 +60,7 @@
 				else
 				{
 					
-					$result = $conn->query("SELECT username, points FROM user_data WHERE user_id = $userId'");
+					$result = $conn->query("SELECT username, points FROM user_data WHERE user_id = '$userId'");
 					$userInfo = $result->fetch_all()[0];
 					echo("Username: " . $userInfo[0] . "<br />Points: " . $userInfo[1]);
 					// Multiple Queries will be needed:
