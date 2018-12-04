@@ -35,7 +35,6 @@
 						else
 						{
 							$result = $conn->query("SELECT card_image FROM `custom_cards` WHERE card_id = " . $_GET['id']);
-							// For some reason, our card is an array within an array, so...
 							$card = $result->fetch_all();	
 							if (count($card) == 0)
 							{
@@ -44,7 +43,7 @@
 							else
 							{
 								$card = $card[0];
-								echo("<img src=\"" . $card[0] . "\"alt=" . $_GET['id'] . "/>");
+								echo("<img class=\"cardImageDisplay\" src=\"" . $card[0] . "\"alt=" . $_GET['id'] . "/>");
 							}
 						}
 					?>

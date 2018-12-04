@@ -28,9 +28,7 @@
 				<form method="POST" action="deck-upload.php" enctype="multipart/form-data">
 					<textarea id="f-search" name="description" class="bigInput text-center" rows="1" cols="25" placeholder="Deck Name"></textarea>	
 					<br/>
-					<div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-					<br/>
-					<div id="cards" class="deckView text-center"></div>
+					<div class="deckView text-center" id="div1" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
 					<br/>
 					<input class="bigInput" type="submit" value="Submit" />
 				</form>
@@ -38,9 +36,10 @@
 			<div class="col-sm-8 text-center">
 				<textarea id="search" name="description" class="bigInput text-center" rows="1" cols="25" placeholder="Search..."></textarea>
 				
-				<img id="drag1" src="./card_images/Snowslide.png" draggable="true" ondragstart="drag(event)" width="336" height="69">
-				
-				<div id="search-results" class="deckView text-center"></div>
+				<div id="search-results" class="deckView text-center">
+					<img class="cardFormat" id="drag1" src="./card_images/Snowslide.png" draggable="true" ondragstart="drag(event)">
+					<img class="cardFormat" id="drag2" src="./card_images/Cleanse.png" draggable="true" ondragstart="drag(event)">
+				</div>
 			</div>
 	</body>
 </html>

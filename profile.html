@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html lang="en-us">
+<html>
 	<head>
 		<meta charset="utf-8">
-		<title>Magic Maker</title>
+		<!-- use the same header as every other page, except the title is changed as appropriate --> 
+		<title>Magic Maker - Upload Custom Card</title>
+		
 		<link type="text/css" href="style.css" rel="stylesheet"/>
 		<link rel="shortcut icon" href="icon.png"/>
+				
 		<script type="text/javascript" src="http://code.jquery.com/jquery-3.1.0.min.js"></script>
-		
-		<script type="text/javascript" src="load-cards-on-scroll.js"></script>
+		<script type="text/javascript" src="load-profile-info.js"></script>
 		<script type="text/javascript" src="loadHeader.js"></script>
 		
 		<!-- For Bootstrap: -->
@@ -20,9 +22,22 @@
 	<body>
 		<!-- Header is dynamically loaded using AJAX-->
 		<div id="header" class="row"></div>
-		<div id="cards" class="text-center">
+
+		<div class="row">
+			<div class="col-sm-4 text-center rightLine">
+				<p>Username</p>
+				<p>Cards Created: </p>
+				<p>Decks Created: </p>
+				<p>Total Upvotes: </p>
+			</div>
+			<div class="col-xs-4 text-center">
+				<p>Decks</p>
+				<div id="deckList"></div>
+			</div>
+			<div class="col-xs-4 text-center leftLine">
+				<p>Cards</p>
+				<div id="cardList"></div>
+			</div>
 		</div>
-		<p> Logged in as <?php echo $_SESSION['userid'] ?>! However, you are not welcome at all... F to pay respects</p>
 	</body>
 </html>
-

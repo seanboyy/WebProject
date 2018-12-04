@@ -88,11 +88,13 @@ input, select, textarea {
 	border-right: 5px solid gray;
 }
 .deckView {
-	height:500px;
+	height:500px !important;
 	overflow-y:scroll;
 }
 #cococardso {
+	display:inline-block;
 	background-color:white;
+	height:272px;
 }
 #div1 {
     width: 350px;
