@@ -30,7 +30,7 @@
 			
 			$userid[0]++;
 
-			$sql = "INSERT INTO user_data VALUES ('$userid[0]','$name', '$email', '$password', 0)" ;
+			$sql = "INSERT INTO user_data VALUES ('$userid[0]','$name', '$email', '$password', 0, 0)" ;
 
 			if ($conn->query($sql) === TRUE) {
 				//echo 'TEST';
@@ -44,4 +44,6 @@
 			echo "Passwords do not match!";
 		}
 	}
+	
+	$conn->close();
 ?>

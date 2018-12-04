@@ -41,4 +41,6 @@
 			//<a href="login.html">Page 1</a>
         }
 	}
+	
+	$conn->close();
 ?>
