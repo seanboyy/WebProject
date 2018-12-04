@@ -1,5 +1,4 @@
 function updateSearch(){
-	console.log("Searching");
     var url = 'https://api.scryfall.com/cards/search?q=' + htmlify($("#search").val());
     
 	console.log(url);
@@ -13,10 +12,11 @@ function updateSearch(){
         //$("#results").text(obj.num_found + " results found.");
 		var obj = data;
 		var objlist = obj.data;
+		//$('#search-results').empty();
 		for(var i = 0; i < obj.total_cards; ++i){
 			imgsrc = objlist[i].image_uris.normal;
 			imgsrc = imgsrc.split("?")[0];
-			$('#search-results').append('<img alt="cardImage" src="' + imgsrc + '" class="cardFormat"/>');
+			$('#search-results').append('<img id="drag' + i + '" draggable="true" ondragstart="drag(event)" alt="cardImage" src="' + imgsrc + '" class="cardFormat"/>');
 		}
     });
     
@@ -55,7 +55,6 @@ function htmlify(inputString){
 	outputString.replace(';', '%3B');
 	outputString.replace('=', '%3D');
 	outputString.replace(' ', '+');
-	console.log("output" + outputString);
 	return outputString;
 }
 
