@@ -59,6 +59,7 @@ function openTabs(){
 		"<div id=\"tabsArea\"  class=\"text-center insideSelection\">" +
 			"<a href=\"index.html\">Main Page</a>" +
 			"<a href=\"card-upload.html\">Card Upload </a>"	+
+			"<a href=\"deck-upload.html\">Deck Upload </a>"	+
 		"</div>"
 		);
 	}
