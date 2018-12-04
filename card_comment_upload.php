@@ -1,0 +1,1 @@
+<!-- do database stuff; redirect back to sending page -->
