@@ -38,6 +38,7 @@
         else
         {
             echo 'The username or password are incorrect!';
+			//<a href="login.html">Page 1</a>
         }
 	}
 ?>
