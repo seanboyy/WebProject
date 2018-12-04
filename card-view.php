@@ -21,12 +21,6 @@
 	<body>
 		<!-- Header is dynamically loaded using AJAX-->
 		<div id="header" class="row"></div>
-
-		<!-- Pull card information from database -->
-		<?php
-		
-		?>
-		
 		<div class="row">
 			<div class="col-sm-2 text-center">
 			</div>
@@ -41,9 +35,16 @@
 						else
 						{
 							$result = $conn->query("SELECT card_image FROM `custom_cards` WHERE card_id = " . $_GET['id']);
-							// For some reason, our card is an array within an array, so...
-							$card = $result->fetch_all()[0];	
-							echo("<img class=\"cardImageDisplay\" src=\"" . $card[0] . "\"alt=" . $_GET['id'] . "/>");
+							$card = $result->fetch_all();	
+							if (count($card) == 0)
+							{
+								echo("<p>Error 404 - No Card Found</p>");
+							}
+							else
+							{
+								$card = $card[0];
+								echo("<img class=\"cardImageDisplay\" src=\"" . $card[0] . "\"alt=" . $_GET['id'] . "/>");
+							}
 						}
 					?>
 					<!-- Pull card image path from database -->
@@ -60,54 +61,61 @@
 					{
 						$result = $conn->query("SELECT * FROM `custom_cards` WHERE card_id = " . $_GET['id']);
 						// For some reason, our card is an array within an array, so...
-						$card = $result->fetch_all()[0];
-						
-						echo("<label for=\"card-name\">Card Name: </label>");
-						//<!-- Pull card name from database -->
-						echo(" " . $card[1] . "<br />");
-						echo("<label for=\"mana-cost\">Mana Cost: </label>");
-						//<!-- Pull mana cost from database -->
-						echo(" " . $card[2] . "<br />");
-						echo("<label for=\"type-line\">Type Line: </label>");
-						//<!-- Pull type line from database -->
-						echo(" " . $card[3] . "<br />");
-						echo("<label for=\"rarity\">Rarity: </label>");	
-						//<!-- Pull rarity from database -->
-						switch ($card[4])
+						$card = $result->fetch_all();
+						if(count($card) == 0)
 						{
-							case 2:
-								echo(" Token <br />");
-								break;
-							case 3:
-								echo(" Basic Land <br />");
-								break;
-							case 4:
-								echo(" Common <br />");
-								break;
-							case 5:
-								echo(" Uncommon <br />");
-								break;
-							case 6:
-								echo(" Rare <br />");
-								break;
-							case 7: 
-								echo(" Mythic Rare <br />");
-								break;
+							echo("<p>Error 404 - No Card Found</p>");							
 						}
-						echo("<label for=\"rules-text\">Rules Text:</label>");
-						//<!-- Pull rules text from database (may be multiple lines) -->
-						echo(" " . $card[5] . "<br />");
-						if ($card[6] != -58 && $card[7] != -58)
+						else
 						{
-							echo("<label for=\"power\">Power/Toughness: </label>");
-							//<!-- Pull power from database -->
-							//<!-- Pull toughness from database -->
-							echo(" " . $card[6] . "/");
-							echo($card[7] . "<br />");
+							$card = $card[0];
+							echo("<label for=\"card-name\">Card Name: </label>");
+							//<!-- Pull card name from database -->
+							echo(" " . $card[1] . "<br />");
+							echo("<label for=\"mana-cost\">Mana Cost: </label>");
+							//<!-- Pull mana cost from database -->
+							echo(" " . $card[2] . "<br />");
+							echo("<label for=\"type-line\">Type Line: </label>");
+							//<!-- Pull type line from database -->
+							echo(" " . $card[3] . "<br />");
+							echo("<label for=\"rarity\">Rarity: </label>");	
+							//<!-- Pull rarity from database -->
+							switch ($card[4])
+							{
+								case 2:
+									echo(" Token <br />");
+									break;
+								case 3:
+									echo(" Basic Land <br />");
+									break;
+								case 4:
+									echo(" Common <br />");
+									break;
+								case 5:
+									echo(" Uncommon <br />");
+									break;
+								case 6:
+									echo(" Rare <br />");
+									break;
+								case 7: 
+									echo(" Mythic Rare <br />");
+									break;
+							}
+							echo("<label for=\"rules-text\">Rules Text:</label>");
+							//<!-- Pull rules text from database (may be multiple lines) -->
+							echo(" " . $card[5] . "<br />");
+							if ($card[6] != -58 && $card[7] != -58)
+							{
+								echo("<label for=\"power\">Power/Toughness: </label>");
+								//<!-- Pull power from database -->
+								//<!-- Pull toughness from database -->
+								echo(" " . $card[6] . "/");
+								echo($card[7] . "<br />");
+							}
+							echo("<label for=\"description\">Card Description:</label>");
+							//<!-- Pull card description from database -->
+							echo(" " . $card[9] . "<br />");
 						}
-						echo("<label for=\"description\">Card Description:</label>");
-						//<!-- Pull card description from database -->
-						echo(" " . $card[9] . "<br />");
 					}
 				?>
 			</div>
@@ -115,7 +123,25 @@
 		<!-- We should display comments here, I guess? How are we implementing comments? -->
 
 		<?php
-			include "./card_comments.php";
+			$conn = mysqli_connect('localhost', 'root', '', 'card_database');
+			if($conn->connect_errno)
+			{
+				echo("failed to connect!");
+			}
+			else
+			{
+				// Double check we have,  in fact, a card we're displaying
+				$result = $conn->query("SELECT * FROM `custom_cards` WHERE card_id = " . $_GET['id']);
+				$card = $result->fetch_all();	
+				if (count($card) == 0)
+				{
+					echo("<p>Error 404 - No Card Found</p>");
+				}
+				else
+				{
+					include "./card_comments.php";
+				}
+			}
 		?>
 	</body>
 </html>
