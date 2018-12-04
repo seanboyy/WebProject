@@ -96,3 +96,8 @@ input, select, textarea {
 	background-color:white;
 	height:272px;
 }
+#div1 {
+    width: 350px;
+    height: 70px;
+    border: 1px solid black;
+}

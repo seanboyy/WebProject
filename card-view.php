@@ -113,5 +113,9 @@
 			</div>
 		</div>
 		<!-- We should display comments here, I guess? How are we implementing comments? -->
+
+		<?php
+			include "./card_comments.php";
+		?>
 	</body>
 </html>
