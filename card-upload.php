@@ -105,7 +105,9 @@
 					{
 						$stmt->bind_param("isssisiiissi", $cardid[0], $input["card-name"], $input["mana-cost"], $input["type-line"], $input["rarity"], $input["rules-text"], $input["power"], $input["toughness"], $userid, $input["description"], $picloc, $points);
 						$stmt->execute();
-				}
+						
+						forceRedirect("./card-view.php?id=" . $cardid[0]);
+					}
 					else
 					{
 						$error = $conn->errno . ' ' . $conn->error;
@@ -118,6 +120,19 @@
 				$statusMessage = "No POST request received.";
 			}
 			
+			// Found at https://css-tricks.com/snippets/php/redirect/
+			function forceRedirect($url = '/'){
+				if(!headers_sent()) {
+					header('HTTP/1.1 301 Moved Permanently');
+					header('Location:'.$url);  
+					header('Connection: close');
+					exit;
+				}
+				else {
+					echo 'location.replace('.$url.');';
+				}
+				exit;
+			}
 		?>
 		<p><a href="./">Back to main page</a></p>
 	</body>
