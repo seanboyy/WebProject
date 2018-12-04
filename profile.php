@@ -56,7 +56,8 @@
 				}
 				else
 				{
-					$result = $conn->query("SELECT username, points FROM user_data");
+					$userId = $_SESSION['userid'];
+					$result = $conn->query("SELECT username, points FROM user_data WHERE user_id = '$userId'");
 					$userInfo = $result->fetch_all()[0];
 					echo("Username: " . $userInfo[0] . "<br />Points: " . $userInfo[1]);
 					// Multiple Queries will be needed:
@@ -85,6 +86,7 @@
 					}
 					else
 					{
+						$userId = $_SESSION['userid'];
 						$result = $conn->query("SELECT deck_id FROM deck_database WHERE creator_id = " . $userId);
 						$reversed = array_reverse($result->fetch_all());
 						for($i = 0; $i < count($reversed); ++$i)
@@ -100,7 +102,7 @@
 				<p>Cards</p>
 				<!-- PHP QUERY FOR CARDS -->
 				<?php
-				$userId = 1;
+					$userId = $_SESSION['userid'];
 					$result = $conn->query("SELECT card_id, card_image FROM custom_cards WHERE creator_id = " . $userId);
 					$reversed = array_reverse($result->fetch_all());
 					for($i = 0; $i < count($reversed); ++$i){
