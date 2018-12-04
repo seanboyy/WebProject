@@ -3,7 +3,7 @@
 	define('DB_SERVER','localhost');
 	define('DB_USER','root');
 	define('DB_PASS', '');
-	define('DB_NAME', 'magicmaker');
+	define('DB_NAME', 'card_database');
 
 	$conn = mysqli_connect(DB_SERVER,DB_USER,DB_PASS,DB_NAME);
 
@@ -23,7 +23,7 @@
         if(mysqli_num_rows($result1) > 0 )
         { 
 			session_start([
-				'cookie_lifetime' => 86400,
+				//'cookie_lifetime' => 86400,
 			]);
 			
 			$result1 = mysqli_query($conn, "SELECT user_id FROM user_data WHERE username = '$name' AND password = '$password'");
