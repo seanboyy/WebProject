@@ -40,17 +40,14 @@
 			$servername = "127.0.0.1";
 			$username = "root";
 			$password = "";
-			$dbname = "user_data";
+			$dbname = "card_database";
 
 			// These hold the values we will output in the JSON
 			$statusMessage = "";
 
-			// Check that we received a POST request
-			if( $_SERVER['REQUEST_METHOD'] === 'POST' )
-			{	
-				if(!isset($_POST["username"]) || !is_string($_POST["username"])) {}
-				if(!isset($_POST["points"]) || !is_int($_POST["points"])) {}
-				
+			// Check that we received a GET request
+			if( $_SERVER['REQUEST_METHOD'] === 'GET' )
+			{					
 				$conn = new mysqli($servername, $username, $password, $dbname);
 				// Check connection
 				if ($conn->connect_errno) 
@@ -59,21 +56,15 @@
 				}
 				else
 				{
-					$userId = 0;
-					$conn->real_query("SELECT COUNT(*) FROM `user_data`");
-					$count_res = $conn->use_result();
-					$count = $count_res->fetch_all(MYSQLI_NUM)[0];
-					if($count > 0){
-						$conn->real_query("SELECT max(user_id) FROM `user_data`");
-						$cardid_res = $conn->use_result();
-						$cardid = $cardid_res->fetch_all(MYSQLI_NUM)[0];
+					$userId = $_SESSION['userid'];
+					$result = $conn->query("SELECT username, points FROM user_data WHERE user_id = '$userId'");
+					$userInfo = $result->fetch_all()[0];
+					echo("Username: " . $userInfo[0] . "<br />Points: " . $userInfo[1]);
+					// Multiple Queries will be needed:
+					// SELECT username, points FROM user_data
+					// SELECT card_id, card_image FROM custom_card WHERE creator_id = $userId
+					// SELECT deck_id FROM deck_database WHERE creator_id = $userId
 					}
-					$userId[0]++;
-					$userid = -1;
-					$stmt = $conn->prepare("INSERT INTO `user_data` VALUES (?, ?)");
-					$stmt->bind_param("si", $cardid[0], $_POST["username"], $_POST["points"]);
-					$stmt->execute();
-				}
 			}
 			
 			
@@ -82,11 +73,42 @@
 			
 			<div class="col-xs-4 text-center">
 				<p>Decks</p>
-				<div id="deckList"></div>
+				<!-- PHP QUERY FOR DECKS -->
+				<?php
+					$conn = new mysqli("127.0.0.1", "root", "", "card_database");
+					$userId = 1;
+					$statusMessage = "";
+					
+					// Check connection
+					if ($conn->connect_errno) 
+					{
+						$statusMessage = "Could not connect to database";
+					}
+					else
+					{
+						$userId = $_SESSION['userid'];
+						$result = $conn->query("SELECT deck_id FROM deck_database WHERE creator_id = " . $userId);
+						$reversed = array_reverse($result->fetch_all());
+						for($i = 0; $i < count($reversed); ++$i)
+						{
+							echo ("<div><a href='./card-view.php?id=" . $reversed[$i][0] . "'><img alt='" .
+							$reversed[$i][0] . "' src='" . $reversed[$i][1] . "' class='cardFormat'/></a></div>");
+						}
+					}
+				?>
+				
 			</div>
 			<div class="col-xs-4 text-center leftLine">
 				<p>Cards</p>
-				<div id="cardList"></div>
+				<!-- PHP QUERY FOR CARDS -->
+				<?php
+					$userId = $_SESSION['userid'];
+					$result = $conn->query("SELECT card_id, card_image FROM custom_cards WHERE creator_id = " . $userId);
+					$reversed = array_reverse($result->fetch_all());
+					for($i = 0; $i < count($reversed); ++$i){
+						echo "<div> <a href='./card-view.php?id=".$reversed[$i][0]."'><img alt='".$reversed[$i][0]."' src='".$reversed[$i][1]."' class='cardFormat'/></a></div>";
+					}
+				?>
 			</div>
 		</div>
 	</body>

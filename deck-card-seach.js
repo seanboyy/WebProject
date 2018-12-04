@@ -1,6 +1,5 @@
 function updateSearch(){
-	console.log("Searching");
-    var url = 'https://api.scryfall.com/cards/search?q=' + htmlify($("#search").text());
+    var url = 'https://api.scryfall.com/cards/search?q=' + htmlify($("#search").val());
     
 	console.log(url);
     // second arg specifies the query parameters for the GET request
@@ -13,12 +12,12 @@ function updateSearch(){
         //$("#results").text(obj.num_found + " results found.");
 		var obj = data;
 		var objlist = obj.data;
+		//$('#search-results').empty();
 		for(var i = 0; i < obj.total_cards; ++i){
 			imgsrc = objlist[i].image_uris.normal;
 			imgsrc = imgsrc.split("?")[0];
-			$('#cards').append('<img alt="cardImage" src="' + imgsrc + '" class="cardFormat"/>');
+			$('#search-results').append('<img id="drag' + i + '" draggable="true" ondragstart="drag(event)" alt="cardImage" src="' + imgsrc + '" class="cardFormat"/>');
 		}
-		makeDelay(100);
     });
     
     // Set the callback for if/when the AJAX request fails
@@ -56,7 +55,6 @@ function htmlify(inputString){
 	outputString.replace(';', '%3B');
 	outputString.replace('=', '%3D');
 	outputString.replace(' ', '+');
-	console.log(outputString);
 	return outputString;
 }
 
@@ -71,7 +69,7 @@ function makeDelay(ms) {
 
 $(document).ready(function(){
 	console.log("Ready");
-	var delay = makeDelay(10);
+	var delay = makeDelay(100);
 	$("#search").on("keyup change", function(){delay(updateSearch);});
 	
   //$("#q").on("keyup change", updateSearch);
