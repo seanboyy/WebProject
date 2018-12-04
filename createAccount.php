@@ -1,4 +1,5 @@
 <?php
+	//$session_reset();
 	define('DB_SERVER','localhost');
 	define('DB_USER','root');
 	define('DB_PASS', '');
@@ -30,7 +31,7 @@
 			
 			$userid[0]++;
 
-			$sql = "INSERT INTO user_data VALUES ('$userid[0]','$name', '$email', '$password', 0)" ;
+			$sql = "INSERT INTO user_data VALUES ('$userid[0]','$name', '$email', '$password', 0,0)" ;
 
 			if ($conn->query($sql) === TRUE) {
 				//echo 'TEST';
