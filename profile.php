@@ -1,6 +1,6 @@
 <?php
-				session_start();
-				?>
+	session_start();
+?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -47,7 +47,7 @@
 
 			// These hold the values we will output in the JSON
 			$statusMessage = "";
-
+			$userId = $_SESSION["userid"];
 			// Check that we received a GET request
 			if( $_SERVER['REQUEST_METHOD'] === 'GET' )
 			{					
@@ -59,8 +59,8 @@
 				}
 				else
 				{
-					$userId = $_SESSION['userid'];
-					$result = $conn->query("SELECT username, points FROM user_data WHERE user_id = '$userId'");
+					
+					$result = $conn->query("SELECT username, points FROM user_data WHERE user_id = $userId'");
 					$userInfo = $result->fetch_all()[0];
 					echo("Username: " . $userInfo[0] . "<br />Points: " . $userInfo[1]);
 					// Multiple Queries will be needed:
@@ -79,9 +79,8 @@
 				<!-- PHP QUERY FOR DECKS -->
 				<?php
 					$conn = new mysqli("127.0.0.1", "root", "", "card_database");
-					$userId = 1;
 					$statusMessage = "";
-					
+					$userId = $_SESSION["userid"];
 					// Check connection
 					if ($conn->connect_errno) 
 					{
@@ -89,8 +88,8 @@
 					}
 					else
 					{
-						$userId = $_SESSION['userid'];
-						$result = $conn->query("SELECT deck_id FROM deck_database WHERE creator_id = " . $userId);
+						
+						$result = $conn->query("SELECT deck_id FROM deck_database WHERE creator_id = '$userId'");
 						$reversed = array_reverse($result->fetch_all());
 						for($i = 0; $i < count($reversed); ++$i)
 						{
@@ -105,8 +104,8 @@
 				<p>Cards</p>
 				<!-- PHP QUERY FOR CARDS -->
 				<?php
-					$userId = $_SESSION['userid'];
-					$result = $conn->query("SELECT card_id, card_image FROM custom_cards WHERE creator_id = " . $userId);
+					$userId = $_SESSION["userid"];
+					$result = $conn->query("SELECT card_id, card_image FROM custom_cards WHERE creator_id = '$userId'");
 					$reversed = array_reverse($result->fetch_all());
 					for($i = 0; $i < count($reversed); ++$i){
 						echo "<div> <a href='./card-view.php?id=".$reversed[$i][0]."'><img alt='".$reversed[$i][0]."' src='".$reversed[$i][1]."' class='cardFormat'/></a></div>";
