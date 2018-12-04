@@ -25,7 +25,7 @@
 	<div class="row">
 		<div class="col-sm-6 text-center">
 			<p class="title">Sign In</p>
-			<form action="index.html">
+			<form action="login.php" method = "post">
 				<label for="f-username" class="formLabel">Username:</label>
 				<input type="text" name="username" id="f-username" />
 				<br />
@@ -37,7 +37,7 @@
 		</div>
 		<div class="col-sm-6 text-center">
 			<p class="title">Sign Up</p>
-			<form action="index.html">
+			<form action="createAccount.php" method = "post">
 				<label for="f-username" class="formLabel">Username:</label>
 				<input type="text" name="username" id="f-username" />
 				<br />
@@ -45,12 +45,12 @@
 				<input type="password" name="password" id="f-password" />
 				<br />	
 				<label for="f-password-confirm" class="formLabel">Confirm Password:</label>
-				<input type="password" name="password" id="f-password-confirm" />
+				<input type="password" name="password-confirm" id="f-password-confirm" />
 				<br />	
 				<label for="f-email" class="formLabel">Email:</label>
 				<input type="email" name="email" id="f-email" />
 				<br />	
-				<input class="smallInput" id="btn-submit" type="submit" value="Log in">
+				<input class="smallInput" id="btn-submit" type="submit" value="Create Account">
 			</form>
 		</div>
 	</div>
