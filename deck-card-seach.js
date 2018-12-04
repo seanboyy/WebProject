@@ -1,36 +1,45 @@
 function updateSearch(){
-    var url = 'https://api.scryfall.com/cards/search?q=' + htmlify($("#search").val());
-    
-	console.log(url);
-    // second arg specifies the query parameters for the GET request
-    var jqxhr = $.get(url);
-    
-    // Set the callback for if/when the AJAX request successfully returns
-    jqxhr.done(function(data){
-        // data will be the string response to the AJAX request
-        //var obj = JSON.parse(data);
-        //$("#results").text(obj.num_found + " results found.");
-		var obj = data;
-		var objlist = obj.data;
-		//$('#search-results').empty();
-		for(var i = 0; i < obj.total_cards; ++i){
-			imgsrc = objlist[i].image_uris.normal;
-			imgsrc = imgsrc.split("?")[0];
-			$('#search-results').append('<img id="drag' + i + '" draggable="true" ondragstart="drag(event)" alt="cardImage" src="' + imgsrc + '" class="cardFormat"/>');
-		}
-    });
-    
-    // Set the callback for if/when the AJAX request fails
-    jqxhr.fail(function(result){
-        // result is the failed call (so we can access status, e.g.)
-        $("#cards").append('<p>Call Failed</p>');
-        console.log("Error: " + result.status);
-    });
-    
-    // Set a callback to execute regardless of success or failure result
-    jqxhr.always(function(){
-        console.log("Done with AJAX request");
-    });
+	$('#search-results').empty();
+	if ($("#search").val().length > 0) {
+		var url = 'https://api.scryfall.com/cards/search?q=' + htmlify($("#search").val());
+		
+		console.log(url);
+		// second arg specifies the query parameters for the GET request
+		var jqxhr = $.get(url);
+		
+		// Set the callback for if/when the AJAX request successfully returns
+		jqxhr.done(function(data){
+			// data will be the string response to the AJAX request
+			//var obj = JSON.parse(data);
+			//$("#results").text(obj.num_found + " results found.");
+			var obj = data;
+			var objlist = obj.data;
+			for(var i = 0; i < obj.total_cards; ++i){
+				imgsrc = objlist[i].image_uris.normal;
+				imgsrc = imgsrc.split("?")[0];
+				$('#search-results').append('<img id="' + imgsrc + '" draggable="true" ondragstart="drag(event)" alt="cardImage" src="' + imgsrc + '" class="cardFormat"/>');
+			}
+		});
+		
+		// Set the callback for if/when the AJAX request fails
+		jqxhr.fail(function(result){
+			// result is the failed call (so we can access status, e.g.)
+			$("#search-results").append('<p>Call Failed</p>');
+			console.log("Error: " + result.status);
+		});
+		
+		// Set a callback to execute regardless of success or failure result
+		jqxhr.always(function(){
+			console.log("Done with AJAX request");
+		});
+		
+		var url = "/WebProject/deck-card-search.php?q=" + $("#search").val();
+		var jqxhr = $.get(url);
+		jqxhr.done(function(data){
+			var _images = data.split(/<.?body>/);
+			$("#search-results").append(_images[1]);
+		});
+	}
 };
 
 function htmlify(inputString){
@@ -69,7 +78,7 @@ function makeDelay(ms) {
 
 $(document).ready(function(){
 	console.log("Ready");
-	var delay = makeDelay(100);
+	var delay = makeDelay(200);
 	$("#search").on("keyup change", function(){delay(updateSearch);});
 	
   //$("#q").on("keyup change", updateSearch);
