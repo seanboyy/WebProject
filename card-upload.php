@@ -96,7 +96,7 @@
 						$cardid = $cardid_res->fetch_all(MYSQLI_NUM)[0];
 					}
 					$cardid[0]++;
-					$userid = -1;
+					$userid = $_SESSION["userid"];
 					$points = 0;
 					if ($stmt = $conn->prepare("INSERT INTO `custom_cards` VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"))					
 					{

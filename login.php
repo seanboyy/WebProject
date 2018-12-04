@@ -38,7 +38,9 @@
         else
         {
             echo 'The username or password are incorrect!';
-			//<a href="login.html">Page 1</a>
+			echo '<br></br><a href="login.html">Return to the Login Page</a>';
         }
 	}
+	
+	$conn->close();
 ?>
