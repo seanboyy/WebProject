@@ -24,6 +24,7 @@ function doEntry(cardNum, editSpan){
 			jqxhr.done(function(data){
 				var desc = data.split(/<.?body>/);
 				newcontent.innerHTML = desc[1];
+				newcontent.style = "display:inline-block;";
 			});
 			
 			editSpan.appendChild(newcontent);

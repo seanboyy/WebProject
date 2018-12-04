@@ -92,5 +92,7 @@ input, select, textarea {
 	overflow-y:scroll;
 }
 #cococardso {
+	display:inline-block;
 	background-color:white;
+	height:272px;
 }
