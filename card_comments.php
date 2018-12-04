@@ -1,10 +1,16 @@
 <!--  THIS FILE SHOULD ONLY BE CALLED IN A PHP FILE THAT HAS A CARD/DECK ID IN THE $_GET SUPERGLOBAL CALLED "id" -->
+<!--  THIS FILE SHOULD ONLY BE CALLED IN A PHP FILE THAT ALSO HAS AN ACTIVE SESSION WITH VARIABLE "userid" -->
 <!-- This creates a form that allows the user to add new comments -->
-<form action="./card_comment_upload.php">
+<form action="./card_comment_upload.php" method="POST">
 	<fieldset>
 		<legend>New Comment</legend>
-		<input type="textarea" rows="4" cols="25" placeholder="New Comment here!"></input>
+		<input type="textarea" name="comment_text" rows="4" cols="25" placeholder="New Comment here!"></input>
 		<input type="submit" value="Post Comment"></input>
+		<?php
+			echo("<input type=\"hidden\" name=\"id\" value=\"" . $_GET["id"] . "\"/>");
+			$user = $_SESSION["userid"];	// User ID
+			echo("<input type=\"hidden\" name=\"user\" value=\"" . $user . "\"/>");
+		?>
 	</fieldset>
 </form>
 <!-- This prints out existing comments -->
@@ -45,7 +51,7 @@
 					}
 					echo(
 						"<fieldset>" . 
-							"<a href=./profile.php?id=" . $comments[$i]["user_id"] . "><h1>" . $username . " says: </h1></a>" .	// Create a link to the user profile
+							"<a href=./profile.php?id=" . $comments[$i]["user_id"] . "><p>" . $username . " says: </p></a>" .	// Create a link to the user profile
 							"<p>" . $comments[$i]["comment_text"] . "</p>" .	//This should just be whatever the comment text is
 						"</fieldset>"
 					);
