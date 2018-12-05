@@ -10,4 +10,5 @@ function drop(ev) {
     ev.preventDefault();
     var data = ev.dataTransfer.getData("text");
     ev.currentTarget.appendChild(document.getElementById(data));
+	$('#f-deck-list').append(data + " ");
 }
