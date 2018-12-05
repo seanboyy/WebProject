@@ -51,7 +51,7 @@ function doEntry(cardNum, editSpan){
 				var desc = data.split(/<.?body>/);
 				if(desc[1] != "") newcontent = newcontent.concat("Description: " + desc[1]);
 				else newcontent = newcontent.concat("User did not upload a description");
-				newcontent = newcontent.concat("</td></tr><tr><td><form><table><tbody><tr><td><input type='button' onclick='doUpvote(" + cardNum + ")' value='Upvote'></td><td id='mainpagepoints" + cardNum + "'>");
+				newcontent = newcontent.concat("</td></tr><tr><td><form><table><tbody><tr><td><input type='button' onclick='doUpvote(" + cardNum + ")' value='Upvote'></td><td id='mpp" + cardNum + "'>");
 				url2 = "/WebProject/get-points.php?type=card&id=" + cardNum;
 				jqxhr2 = $.get(url2);
 				jqxhr2.done(function(data2){
@@ -83,7 +83,8 @@ function doUpvote(cardNum){
 	var jqxhr = $.get(url);
 	jqxhr.done(function(data){
 		var newCount = data.split(/<.?body>/);
-		$("#mainpagepoints").html(newCount[1]);
+		var fun = wrapFunction(updateText, document, ['#mpp' + cardNum, newCount[1]]);
+		funqueue2.push(fun);
 	});
 	cards[cardNum - 1].hasUpvoted = !cards[cardNum - 1].hasUpvoted
 }
@@ -99,7 +100,8 @@ function doDownvote(cardNum){
 	var jqxhr = $.get(url);
 	jqxhr.done(function(data){
 		var newCount = data.split(/<.?body>/);
-		$("#mainpagepoints").html(newCount[1]);
+		var fun = wrapFunction(updateText, document, ['#mpp' + cardNum, newCount[1]]);
+		funqueue2.push(fun);
 	});
 	cards[cardNum - 1].hasDownvoted = !cards[cardNum - 1].hasDownvoted
 }
@@ -163,6 +165,12 @@ function sleep(milliseconds) {
 		}
 	}
 }
+
+function executeQueue2(){
+	if(funqueue2.length > 0) (funqueue2.shift())();
+}
+
+setInterval(executeQueue2, 5);
 
 function executeQueue(){
 	if(funqueue.length > 0) (funqueue.shift())();

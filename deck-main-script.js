@@ -52,7 +52,8 @@ function doDownvote(deckId){
 	var jqxhr = $.get(url);
 	jqxhr.done(function(data){
 		var newCount = data.split(/<.?body>/);
-		$("#dpu" + deckId).html(newCount[1]);
+		var fun = wrapFunction(updateText, document, ['#dpu' + deckId, newCount[1]]);
+		funqueue.push(fun);
 	});
 	decks[deckId - 1].hasDownvoted = !decks[deckId - 1].hasDownvoted;
 }
