@@ -1,3 +1,6 @@
+<?php
+	session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -46,7 +49,7 @@
 						$deckid = $deckid_res->fetch_all(MYSQLI_NUM)[0];
 					}
 					$deckid[0]++;
-					$userid = -1;
+					$userid = $_SESSION["userid"];
 					$points = 0;
 					$stmt = $conn->prepare("INSERT INTO `deck_database` VALUES (?, ?, ?, ?, ?, ?)");
 					$stmt->bind_param("issisi", $deckid[0], $_POST["deck-list"], $_POST["description"], $userid, $_POST["deck-name"], $points);
