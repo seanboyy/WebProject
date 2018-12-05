@@ -6,7 +6,7 @@
 	<head>
 		<meta charset="utf-8">
 		<!-- use the same header as every other page, except the title is changed as appropriate --> 
-		<title>Magic Maker - User Profile</title>
+		<title>Magic Maker - Other User Profiles</title>
 		
 		<link type="text/css" href="style.css" rel="stylesheet"/>
 		<link rel="shortcut icon" href="icon.png"/>
@@ -47,7 +47,7 @@
 
 			// These hold the values we will output in the JSON
 			$statusMessage = "";
-			$userId = $_SESSION["userid"];
+			$userId = $_SESSION["creator_id"];
 			// Check that we received a GET request
 			if( $_SERVER['REQUEST_METHOD'] === 'GET' )
 			{					
@@ -80,7 +80,7 @@
 				<?php
 					$conn = new mysqli("127.0.0.1", "root", "", "card_database");
 					$statusMessage = "";
-					$userId = $_SESSION["userid"];
+					$userId = $_SESSION["creator_id"];
 					// Check connection
 					if ($conn->connect_errno) 
 					{
@@ -104,7 +104,7 @@
 				<p>Cards</p>
 				<!-- PHP QUERY FOR CARDS -->
 				<?php
-					$userId = $_SESSION["userid"];
+					$userId = $_SESSION["creator_id"];
 					$result = $conn->query("SELECT card_id, card_image FROM custom_cards WHERE creator_id = '$userId'");
 					$reversed = array_reverse($result->fetch_all());
 					for($i = 0; $i < count($reversed); ++$i){

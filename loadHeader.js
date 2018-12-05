@@ -59,7 +59,7 @@ function openTabs(){
 		"<div id=\"tabsArea\"  class=\"text-center insideSelection\">" +
 			"<a href=\"index.html\">View Cards</a>" +
 			"<a href=\"deck-main.php\">View Decks</a>" +
-			"<a href=\"card-upload.html\">Card Upload </a>"	+
+			"<a href=\"card-upload.php\">Card Upload </a>"	+
 			"<a href=\"deck-upload.html\">Deck Upload </a>"	+
 		"</div>"
 		);
