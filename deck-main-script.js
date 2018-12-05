@@ -3,10 +3,14 @@ var funqueue = [];
 var decks = [];
 
 $(document).ready(function(){
-	var temp = document.getElementsByTagName("body")[0].innerHTML.split(/<span class.*?>/);
-	for(var i = 1; i < temp.length - 1; ++i){
-		decks.push(new DeckHolder());
-	}
+	var url = "/WebProject/get-max.php?type=deck";
+	var jqxhr = $.get(url);
+	jqxhr.done(function(data){
+		var _max = data.split(/<.?body>/);
+		for(var i = 1; i < parseInt(_max[0]); ++i){
+			decks.push(new DeckHolder());
+		}	
+	});
 });
 
 function DeckHolder(){
