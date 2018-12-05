@@ -15,8 +15,11 @@
 		<link rel="shortcut icon" href="icon.png"/>
 		<script type="text/javascript" src="http://code.jquery.com/jquery-3.1.0.min.js"></script>
 		
-		<script type="text/javascript" src="load-cards-on-scroll.js"></script>
+		<!--<script type="text/javascript" src="load-cards-on-scroll.js"></script> -->
+		<!--<script type="text/javascript" src="deck-card-seach.js"></script>-->
 		<script type="text/javascript" src="loadHeader.js"></script>
+		<!--To run the drag and drop-->
+		<!--<script type="text/javascript" src="drag-drop.js"></script>-->
 		
 		<!-- For Bootstrap: -->
 		<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -28,9 +31,24 @@
 	<body>
 		<!-- Header is dynamically loaded using AJAX-->
 		<div id="header" class="row"></div>
-		<div id="cards" class="text-center">
+		<div class="text-center">
+		<?php
+			$conn = new mysqli("127.0.0.1", "root", "", "card_database");
+			$statusMessage = "";
+			// Check connection
+			if ($conn->connect_errno) {
+				$statusMessage = "Could not connect to database";
+			} else
+			{
+				$result = $conn->query("SELECT title, deck_id, cards FROM deck_database");
+				$reversed = array_reverse($result->fetch_all());
+				for($i = 0; $i < count($reversed); $i++)
+				{
+					echo ("<span>".$reversed[$i][0]."<a href='./deck-view.php?id=" . $reversed[$i][1] . "'><img alt='" .
+					$reversed[$i][1] . "' src='" . explode(' ', $reversed[$i][2])[0] . "' class='cardFormat'/></a></span>");
+				}
+			}
+		?>
 		</div>
-		<p> Logged in as <?php echo $_SESSION['userid'] ?>! However, you are not welcome at all... F to pay respects</p>
 	</body>
 </html>
-
