@@ -112,6 +112,17 @@ function deleteDeck(deckID){
 	var jqxhr = $.get(url);
 	jqxhr.done(function(data){
 		console.log("Deck Deleted!");
+		window.location.href = 'deck-main.php';
+	});
+}
+
+function deleteCard(cardID){
+	var url = "/WebProject/delete-card.php?id=" + cardID;
+	console.log(url);
+	var jqxhr = $.get(url);
+	jqxhr.done(function(data){
+		console.log("Card Deleted!");
+		window.location.href = 'index.html';
 	});
 }
 

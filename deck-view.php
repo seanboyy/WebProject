@@ -46,9 +46,8 @@
 						echo("<label for=\"creator_id\">Creator Name: </label>");
 							//<!-- Pull card name from database -->
 							echo("<a href=\"other_profiles.php\"> " . $card2[0][0] . "</a><br />");
-						if ($card[0][0]==$_SESSION['userid'])
+						if ($card[0][0]==$_SESSION['userid'] || $_SESSION['isadmin'] == 1)
 						{
-							//echo("<a href='deck-main.php'><input type='button' onclick='deleteDeck(".$_GET['id'].")' value='Delete Deck'></a>");
 							echo("<input type='button' onclick='deleteDeck(".$_GET['id'].")' value='Delete Deck'>");
 						}
 					}
