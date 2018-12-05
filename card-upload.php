@@ -1,139 +1,191 @@
 <?php
 	session_start();
+	if(!isset($_SESSION["userid"]))
+	{
+		include "./redirect.php";
+		forceRedirect("./login.html");
+	}
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 	<head>
-		<meta charset="utf-8">
-		<title>Magic Maker - Card Uploading</title>
+		<!-- use the same header as every other page, except the title is changed as appropriate --> 
+		<title>Magic Maker - Upload Custom Card</title>
+		
+		<link type="text/css" href="style.css" rel="stylesheet"/>
+		<link rel="shortcut icon" href="icon.png"/>
+				
+		<script type="text/javascript" src="http://code.jquery.com/jquery-3.1.0.min.js"></script>
+		<script type="text/javascript" src="load-cards-on-scroll.js"></script>
+		<script type="text/javascript" src="loadHeader.js"></script>
+		
+		<!-- For Bootstrap: -->
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<link href="https://fonts.googleapis.com/css?family=Milonga" rel="stylesheet">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	</head>
 	<body>
-		<?php
-			$servername = "127.0.0.1";
-			$username = "root";
-			$password = "";
-			$dbname = "card_database";
+		<!-- Header is dynamically loaded using AJAX-->
+		<div id="header" class="row"></div>
 
-			// These hold the values we will output in the JSON
-			$statusMessage = "";
+		<div class="row">
+			<div class="col-sm-2 text-center">
+			</div>
+			<div class="col-sm-3 text-center">
+				<div class="cardImageDisplay">
+					<img alt="Card Image"/>
+				</div>
+			</div>
+			<div class="col-sm-7 text-center">
+				<?php
+					if (isset($_POST["card-id"]))
+					{
+						$pattern = "' '";
+						$editForm = 	"<form method=\"POST\" action=\"upload-card.php\" enctype=\"multipart/form-data\">" .
+										"<input type=\"hidden\" name=\"card-id\" value=\"" . $_POST["card-id"] . "\"/>" .  
+										// Uploading the card might be tricky... we'll skip it for now...
+										"<label for=\"f-card-img\">Card Image: </label>" .
+										"<input class=\"center\" type=\"file\" name=\"card-img\" id=\"f-card-img\"/><br />" .
+										// End card image upload
+										"<label for=\"f-card-name\">Card Name: </label>" . 
+										"<input type=\"text\" name=\"card-name\" id=\"f-card-name\" value=\"" . $_POST["card-name"] . "\"/><br />" . 	
+										"<label for=\"f-mana-cost\">Mana Cost: </label>" . 
+										"<input type=\"text\" name=\"mana-cost\" id=\"f-mana-cost\" value=\"" . $_POST["mana-cost"] . "\"/><br />" . 
+										"<label for=\"f-type-line\">Type Line: </label>" . 
+										"<input type=\"text\" name=\"type-line\" id=\"f-type-line\" value=\"" . $_POST["type-line"] . "\"/><br />" .	
+										"<label for=\"f-rarity\">Rarity: </label>" . 	
+										"<select name=\"rarity\" id=\"f-rarity\">";
+						// I can't believe I'm about to do this just to get this dumb selection right...	
+						switch($_POST["rarity"])
+						{
+							case 1:
+									$editForm = $editForm . "<option value=\"1\" selected>--Not Selected--</option>" . 
+															"<option value=\"2\">Token</option>" . 
+															"<option value=\"3\">Basic Land</option>" . 
+															"<option value=\"4\">Common</option>" . 
+															"<option value=\"5\">Uncommon</option>" .
+															"<option value=\"6\">Rare</option>" .
+															"<option value=\"7\">Mythic Rare</option>";
+									break;
+							case 2:
+									$editForm = $editForm . "<option value=\"1\">--Not Selected--</option>" . 
+															"<option value=\"2\" selected>Token</option>" . 
+															"<option value=\"3\">Basic Land</option>" . 
+															"<option value=\"4\">Common</option>" . 
+															"<option value=\"5\">Uncommon</option>" .
+															"<option value=\"6\">Rare</option>" .
+															"<option value=\"7\">Mythic Rare</option>";
+									break;
+							case 3:
+									$editForm = $editForm . "<option value=\"1\">--Not Selected--</option>" . 
+															"<option value=\"2\">Token</option>" . 
+															"<option value=\"3\" selected>Basic Land</option>" . 
+															"<option value=\"4\">Common</option>" . 
+															"<option value=\"5\">Uncommon</option>" .
+															"<option value=\"6\">Rare</option>" .
+															"<option value=\"7\">Mythic Rare</option>";
+									break;
+							case 4: 
+									$editForm = $editForm . "<option value=\"1\">--Not Selected--</option>" . 
+															"<option value=\"2\">Token</option>" . 
+															"<option value=\"3\">Basic Land</option>" . 
+															"<option value=\"4\" selected>Common</option>" . 
+															"<option value=\"5\">Uncommon</option>" .
+															"<option value=\"6\">Rare</option>" .
+															"<option value=\"7\">Mythic Rare</option>";
+									break;
+							case 5:
+									$editForm = $editForm . "<option value=\"1\">--Not Selected--</option>" . 
+															"<option value=\"2\">Token</option>" . 
+															"<option value=\"3\">Basic Land</option>" . 
+															"<option value=\"4\">Common</option>" . 
+															"<option value=\"5\" selected>Uncommon</option>" .
+															"<option value=\"6\">Rare</option>" .
+															"<option value=\"7\">Mythic Rare</option>";
+									break;
+							case 6: 
+									$editForm = $editForm . "<option value=\"1\">--Not Selected--</option>" . 
+															"<option value=\"2\">Token</option>" . 
+															"<option value=\"3\">Basic Land</option>" . 
+															"<option value=\"4\">Common</option>" . 
+															"<option value=\"5\">Uncommon</option>" .
+															"<option value=\"6\" selected>Rare</option>" .
+															"<option value=\"7\" >Mythic Rare</option>";
+									break;
+							case 7:
+									$editForm = $editForm . "<option value=\"1\">--Not Selected--</option>" . 
+															"<option value=\"2\">Token</option>" . 
+															"<option value=\"3\">Basic Land</option>" . 
+															"<option value=\"4\">Common</option>" . 
+															"<option value=\"5\">Uncommon</option>" .
+															"<option value=\"6\">Rare</option>" .
+															"<option value=\"7\" selected>Mythic Rare</option>";
+									break;
+						};
+									
+						$editForm = $editForm . "</select><br />" . 	
+										"<label for=\"f-rules-text\">Rules Text:</label>" . 
+										"<textarea id=\"f-rules-text\" name=\"rules-text\" rows=\"3\" cols=\"25\">" . preg_replace("\"%20\"", " ", $_POST["rules-text"]) . "</textarea><br />" . 	
+										"<label for=\"f-power\">Power/Toughness: </label>" ;
+						if ($_POST["power"] != -58)
+						{
+							$editForm = $editForm . "<input class=\"smallInput\" type=\"number\" name=\"power\" id=\"f-power\" min=\"-100\" value=\"" . $_POST["power"] . "\"/>";
+						}
+						else
+						{
+							$editForm = $editForm . "<input class=\"smallInput\" type=\"number\" name=\"power\" id=\"f-power\" min=\"-100\"/>";
+							
+						}
+						if ($_POST["toughness"] != -58)
+						{
+							$editForm = $editForm . "<input class=\"smallInput\" type=\"number\" name=\"toughness\" id=\"f-toughness\" min=\"-100\" value=\"" . $_POST["toughness"] . "\"/><br />";
+						}
+						else
+						{
+							$editForm = $editForm . "<input class=\"smallInput\" type=\"number\" name=\"toughness\" id=\"f-toughness\" min=\"-100\"/><br />";
+						}			
+						$editForm = $editForm . "<label for=\"f-description\">Card Description:</label>" . 
+										"<textarea id=\"f-description\" name=\"description\" rows=\"4\" cols=\"25\" placeholder=\"Give a short description of your thought process in creating this card. This is entirely optional.\">" .preg_replace("\"%20\"", " ", $_POST["description"]) . "</textarea><br />" . 
+										"<input class=\"smallInput\" type=\"submit\" value=\"Update Card\" />" . 
+										"</form>";
 
-			// Check that we received a POST request
-			if( $_SERVER['REQUEST_METHOD'] === 'POST' )
-			{	$input = $_POST;
-				if(!isset($input["card-name"]) || !is_string($input["card-name"])) {}
-				if(!isset($input["mana-cost"]) || !is_string($input["mana-cost"])) {}
-				if(!isset($input["type-line"]) || !is_string($input["type-line"])) {}
-				if(!isset($input["rarity"]) || !is_int($input["rarity"])) {}
-				if(!isset($input["rules-text"]) || !is_string($input["rules-text"])) {}
-				if(!isset($input["power"]) || !is_int($input["power"])) { $input["power"] = -58; }
-				if(!isset($input["toughness"]) || !is_int($input["toughness"])) { $input["toughness"] = -58; }
-				if(!isset($input["description"]) || !is_string($input["description"])) {}
-
-				$fileInfo = $_FILES["card-img"];
-				
-				$picloc = "";
-				if (!empty($fileInfo["name"]))
-				{
-					$validMime = ["image/jpeg", "image/png"];
-					$maxFileSize = 2000000;
-					
-					if($fileInfo["error"] != UPLOAD_ERR_OK)
-					{
-						// an error occurred
-						echo("An error occured uploading the file");
-					} 
-					else if (!in_array($fileInfo["type"], $validMime))
-					{
-						echo("File type not supported");
-					}
-					else if ($fileInfo["size"] > $maxFileSize)
-					{
-						echo("File is too large, max size is 2MB");
+						echo($editForm);
 					}
 					else
 					{
-						// Move the file from temporary location
-						if ($fileInfo["type"] == "image/jpeg")
-						{
-							$extension = ".jpg";
-						}
-						else if ($fileInfo["type"] == "image/png")
-						{
-							$extension = ".png";
-						}
-						$dest = "./card_images/" . $input["card-name"] . $extension;
-						if (move_uploaded_file($fileInfo["tmp_name"], $dest))
-						{
-							$picloc = $dest;
-							echo("File uploaded successfully <br>");
-						}
-						else 
-						{
-							echo("There was a problem uploading the file");
-						}
+						echo ("<form method=\"POST\" action=\"upload-card.php\" enctype=\"multipart/form-data\">" .
+								"<label for=\"f-card-img\">Card Image: </label>" .
+								"<input class=\"center\" type=\"file\" name=\"card-img\" id=\"f-card-img\"/><br />" .	
+								"<label for=\"f-card-name\">Card Name: </label>" . 
+								"<input type=\"text\" name=\"card-name\" id=\"f-card-name\"/><br />" . 	
+								"<label for=\"f-mana-cost\">Mana Cost: </label>" . 
+								"<input type=\"text\" name=\"mana-cost\" id=\"f-mana-cost\"/><br />" . 
+								"<label for=\"f-type-line\">Type Line: </label>" . 
+								"<input type=\"text\" name=\"type-line\" id=\"f-type-line\"/><br />" .	
+								"<label for=\"f-rarity\">Rarity: </label>" . 	
+								"<select name=\"rarity\" id=\"f-rarity\">" . 
+									"<option value=\"1\">--Not Selected--</option>" . 
+									"<option value=\"2\">Token</option>" . 
+									"<option value=\"3\">Basic Land</option>" . 
+									"<option value=\"4\">Common</option>" . 
+									"<option value=\"5\">Uncommon</option>" .
+									"<option value=\"6\">Rare</option>" .
+									"<option value=\"7\">Mythic Rare</option>" . 
+								"</select><br />" . 	
+								"<label for=\"f-rules-text\">Rules Text:</label>" . 
+								"<textarea id=\"f-rules-text\" name=\"rules-text\" rows=\"3\" cols=\"25\"></textarea><br />" . 	
+								"<label for=\"f-power\">Power/Toughness: </label>" . 
+								"<input class=\"smallInput\" type=\"number\" name=\"power\" id=\"f-power\" min=\"-100\"/>" . 
+								"<input class=\"smallInput\" type=\"number\" name=\"toughness\" id=\"f-toughness\" min=\"-100\"/><br />" . 
+								"<label for=\"f-description\">Card Description:</label>" . 
+								"<textarea id=\"f-description\" name=\"description\" rows=\"4\" cols=\"25\" placeholder=\"Give a short description of your thought process in creating this card. This is entirely optional.\"></textarea><br />" . 
+								"<input class=\"smallInput\" type=\"submit\" value=\"Submit Card\" />" . 
+							"</form>");
 					}
-				}
-				
-				// We have a customer number
-				// Search the DB for account matches
-				// TODO: set $statusMessage and $accounts
-				//   from the DB
-				// Use a prepared statement, since the customer_no
-				//   is from the user
-				// Create connection
-				$conn = new mysqli($servername, $username, $password, $dbname);
-				// Check connection
-				if ($conn->connect_errno) 
-				{
-					$statusMessage = "Could not connect to database";
-				}
-				else
-				{
-					$cardid = 0;
-					$conn->real_query("SELECT COUNT(*) FROM `custom_cards`");
-					$count_res = $conn->use_result();
-					$count = $count_res->fetch_all(MYSQLI_NUM)[0];
-					if($count > 0){
-						$conn->real_query("SELECT max(card_id) FROM `custom_cards`");
-						$cardid_res = $conn->use_result();
-						$cardid = $cardid_res->fetch_all(MYSQLI_NUM)[0];
-					}
-					$cardid[0]++;
-					$userid = $_SESSION["userid"];
-					$points = 0;
-					if ($stmt = $conn->prepare("INSERT INTO `custom_cards` VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"))					
-					{
-						$stmt->bind_param("isssisiiissi", $cardid[0], $input["card-name"], $input["mana-cost"], $input["type-line"], $input["rarity"], $input["rules-text"], $input["power"], $input["toughness"], $userid, $input["description"], $picloc, $points);
-						$stmt->execute();
-						
-						forceRedirect("./card-view.php?id=" . $cardid[0]);
-					}
-					else
-					{
-						$error = $conn->errno . ' ' . $conn->error;
-						echo $error; 
-					}
-				}
-			}
-			else
-			{
-				$statusMessage = "No POST request received.";
-			}
-			
-			// Found at https://css-tricks.com/snippets/php/redirect/
-			function forceRedirect($url = '/'){
-				if(!headers_sent()) {
-					header('HTTP/1.1 301 Moved Permanently');
-					header('Location:'.$url);  
-					header('Connection: close');
-					exit;
-				}
-				else {
-					echo 'location.replace('.$url.');';
-				}
-				exit;
-			}
-		?>
-		<p><a href="./">Back to main page</a></p>
+				?>
+			</div>
+		</div>
 	</body>
 </html>

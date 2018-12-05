@@ -42,16 +42,18 @@
 						}
 						else
 						{
-							$result = $conn->query("SELECT card_image FROM `custom_cards` WHERE card_id = " . $_GET['id']);
-							$card = $result->fetch_all();	
-							if (count($card) == 0)
+							$imgQry = $conn->prepare("SELECT card_image FROM `custom_cards` WHERE card_id = ?");
+							$imgQry->bind_param("i", $_GET["id"]);
+							$imgQry->execute();
+							$res = $imgQry->get_result();	
+							if ($res->num_rows <= 0)
 							{
 								echo("<p>Error 404 - No Card Found</p>");
 							}
 							else
 							{
-								$card = $card[0];
-								echo("<img class=\"cardImageDisplay\" src=\"" . $card[0] . "\"alt=" . $_GET['id'] . "/>");
+								$card = $res->fetch_assoc();
+								echo("<img class=\"cardImageDisplay\" src=\"" . $card["card_image"] . "\"alt=" . $_GET['id'] . "/>");
 							}
 						}
 					?>
@@ -76,6 +78,7 @@
 						}
 						else
 						{
+							$pattern = "' '";
 							$card = $card[0];
 							echo("<label for=\"card-name\">Card Name: </label>");
 							//<!-- Pull card name from database -->
@@ -112,7 +115,7 @@
 							echo("<label for=\"rules-text\">Rules Text:</label>");
 							//<!-- Pull rules text from database (may be multiple lines) -->
 							echo(" " . $card[5] . "<br />");
-							if ($card[6] != -58 && $card[7] != -58)
+							if ($card[6] != -101 && $card[7] != -101)
 							{
 								echo("<label for=\"power\">Power/Toughness: </label>");
 								//<!-- Pull power from database -->
@@ -123,13 +126,29 @@
 							echo("<label for=\"description\">Card Description:</label>");
 							//<!-- Pull card description from database -->
 							echo(" " . $card[9] . "<br />");
+							// Display a button to edit the card if it belongs to the user
+							if ($card[8] == $_SESSION["userid"])
+							{
+								echo(	"<form method=\"POST\" action=\"card-upload.php\" enctype=\"multipart/form-data\">" .
+										"<input type=\"hidden\" name=\"card-id\" value=" . $card[0] . "\"/>"	.	
+										"<input type=\"hidden\" name=\"card-img\" value=" . $card[10] . "\"/>" .	
+										"<input type=\"hidden\" name=\"card-name\" value=" . $card[1] . "\"/>" .
+										"<input type=\"hidden\" name=\"mana-cost\" value=" . $card[2] . "\"/>" .
+										"<input type=\"hidden\" name=\"type-line\" value=" . $card[3] . "\"/>" .	
+										"<input type=\"hidden\" name=\"rarity\" value=" . $card[4] . "\"/>" .	
+										"<input type=\"hidden\" name=\"rules-text\" value=\"" . preg_replace($pattern, "%20", $card[5]) . "\"/>" .	
+										"<input type=\"hidden\" name=\"power\" value=" . $card[6] . "\"/>" .
+										"<input type=\"hidden\" name=\"toughness\" value=" . $card[7] . "\"/>" . 
+										"<input type=\"hidden\" name=\"description\" value=\"" . preg_replace($pattern, "%20", $card[9]) . "\"/>" .
+										"<input type=\"submit\" value=\"Edit Card\"/>" . 
+										"</form>");
+							}
 						}
 					}
 				?>
 			</div>
 		</div>
-		<!-- We should display comments here, I guess? How are we implementing comments? -->
-
+		<!-- display comments -->
 		<?php
 			$conn = mysqli_connect('localhost', 'root', '', 'card_database');
 			if($conn->connect_errno)
