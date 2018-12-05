@@ -65,12 +65,12 @@
 						// Double check we have,  in fact, a card we're displaying
 						$result = $conn->query("SELECT (creator_id) FROM `custom_cards` WHERE card_id = " . $_GET['id']);
 						$card = $result->fetch_all();	
-						$_SESSION['creator_id'] = $card[0][0];
+						$session['creator_id'] = $card[0][0];
 						$result2 = $conn->query("SELECT username FROM user_data WHERE user_id = " . $card[0][0]);
 						$card2 = $result2->fetch_all();
 						echo("<label for=\"creator_id\">Creator Name: </label>");
 							//<!-- Pull card name from database -->
-							echo("<a href=\"other_profiles.php\"> " . $card2[0][0] . "</a><br />");
+							echo("<a href=\"profile.php\"> " . $card2[0][0] . "</a><br />");
 						
 					}
 				?>
