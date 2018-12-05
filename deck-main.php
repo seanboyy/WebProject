@@ -1,3 +1,11 @@
+<?php
+	session_start();
+	if(!isset($_SESSION["userid"]))
+	{
+		include "./redirect.php";
+		forceRedirect("./login.html");
+	}
+?>
 <!DOCTYPE html>
 <html lang="en-us">
 	<head>
