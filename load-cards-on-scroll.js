@@ -1,5 +1,7 @@
 var funqueue = [];
 
+var funqueue2 = [];
+
 $(document).ready(function(){
 	funqueue.push(loadImageOurs);
 	/*
@@ -8,6 +10,16 @@ $(document).ready(function(){
 	}
 	*/
 });
+
+var wrapFunction = function(fn, context, params){
+	return function(){
+		fn.apply(context, params);
+	}
+}
+
+function updateText(el, text){
+	$(el).html(text);
+}
 
 var hovering = false;
 
