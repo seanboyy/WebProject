@@ -20,7 +20,7 @@
 		echo("Failed to connect to database.");
 	}
 	else{
-		if ($stmt = $conn->prepare("SELECT comment_text, user_id FROM `comments` WHERE post_id = ? AND is_card = 1"))
+		if ($stmt = $conn->prepare("SELECT comment_text, user_id FROM `comments` WHERE post_id = ? AND is_card = 0"))
 		{
 			$stmt->bind_param("i", $_GET["id"]);
 			$stmt->execute();

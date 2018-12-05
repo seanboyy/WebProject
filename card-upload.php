@@ -1,3 +1,6 @@
+<?php
+	session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -96,13 +99,15 @@
 						$cardid = $cardid_res->fetch_all(MYSQLI_NUM)[0];
 					}
 					$cardid[0]++;
-					$userid = -1;
+					$userid = $_SESSION["userid"];
 					$points = 0;
 					if ($stmt = $conn->prepare("INSERT INTO `custom_cards` VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"))					
 					{
 						$stmt->bind_param("isssisiiissi", $cardid[0], $input["card-name"], $input["mana-cost"], $input["type-line"], $input["rarity"], $input["rules-text"], $input["power"], $input["toughness"], $userid, $input["description"], $picloc, $points);
 						$stmt->execute();
-				}
+						
+						forceRedirect("./card-view.php?id=" . $cardid[0]);
+					}
 					else
 					{
 						$error = $conn->errno . ' ' . $conn->error;
@@ -115,6 +120,19 @@
 				$statusMessage = "No POST request received.";
 			}
 			
+			// Found at https://css-tricks.com/snippets/php/redirect/
+			function forceRedirect($url = '/'){
+				if(!headers_sent()) {
+					header('HTTP/1.1 301 Moved Permanently');
+					header('Location:'.$url);  
+					header('Connection: close');
+					exit;
+				}
+				else {
+					echo 'location.replace('.$url.');';
+				}
+				exit;
+			}
 		?>
 		<p><a href="./">Back to main page</a></p>
 	</body>

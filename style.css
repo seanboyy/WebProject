@@ -88,7 +88,7 @@ input, select, textarea {
 	border-right: 5px solid gray;
 }
 .deckView {
-	height:500px !important;
+	height:450px !important;
 	overflow-y:scroll;
 }
 #cococardso {
@@ -100,4 +100,7 @@ input, select, textarea {
     width: 350px;
     height: 70px;
     border: 1px solid black;
+}
+.invisible {
+	display: none;
 }

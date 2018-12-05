@@ -39,7 +39,7 @@
 					}
 					$comment_id = $comment_id[0] + 1;
 
-					if ($stmt = $conn->prepare("INSERT INTO `comments`(`comment_id`, `comment_text`, `user_id`, `post_id`, `is_card`) VALUES (?, ?, ?, ?, 1)"))					
+					if ($stmt = $conn->prepare("INSERT INTO `comments`(`comment_id`, `comment_text`, `user_id`, `post_id`, `is_card`) VALUES (?, ?, ?, ?, 0)"))					
 					{
 						$stmt->bind_param("isii", $comment_id, $input["comment_text"], $input["user"], $input["id"]);
 						$stmt->execute();
@@ -50,9 +50,8 @@
 						echo $error; 
 					}
 				}
-				echo ("<p><a href=\"./card-view.php?id=" . $_POST["id"] . "\">Back to the card</a></p>");	
-				forceRedirect("./card-view.php?id=" . $_POST["id"]);
-				exit();
+				echo ("<p><a href=\"./deck-view.php?id=" . $_POST["id"] . "\">Back to the deck</a></p>");
+				forceRedirect("./deck-view.php?id=" . $_POST["id"]);				
 			}			
 			else
 			{
@@ -72,6 +71,7 @@
 				}
 				exit;
 			}
+
 		?>
 	</body>
 </html>
