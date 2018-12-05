@@ -6,7 +6,7 @@
 	<head>
 		<meta charset="utf-8">
 		<!-- use the same header as every other page, except the title is changed as appropriate --> 
-		<title>Magic Maker - Upload Custom Card</title>
+		<title>Magic Maker - User Profile</title>
 		
 		<link type="text/css" href="style.css" rel="stylesheet"/>
 		<link rel="shortcut icon" href="icon.png"/>
