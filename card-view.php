@@ -145,8 +145,11 @@
 							}
 						}
 					}
+					echo "</div>";
+					echo "<input class=\"smallInput\" type='button' onclick='doUpvote(".$_GET['id'].")' value='Upvote'>";
+					echo $conn->query("SELECT points FROM `custom_cards` WHERE card_id = ".$_GET['id'])->fetch_all()[0][0];
+					echo "<input class=\"smallInput\" type='button' onclick='doDownvote(".$_GET['id'].")' value='Downvote'>";
 				?>
-			</div>
 		</div>
 		<!-- display comments -->
 		<?php
