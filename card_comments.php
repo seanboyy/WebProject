@@ -20,7 +20,7 @@
 		echo("Failed to connect to database.");
 	}
 	else{
-		if ($stmt = $conn->prepare("SELECT comment_text, user_id FROM `comments` WHERE post_id = ? AND is_card = 1"))
+		if ($stmt = $conn->prepare("SELECT * FROM `comments` WHERE post_id = ? AND is_card = 1"))
 		{
 			$stmt->bind_param("i", $_GET["id"]);
 			$stmt->execute();
@@ -37,9 +37,8 @@
 				while ($row = $res->fetch_assoc())
 				{
 					// Append a new associate array at the end of accounts
-					$comments[] = array("comment_text" => $row["comment_text"], "user_id" => $row["user_id"]);
+					$comments[] = array("comment_text" => $row["comment_text"], "user_id" => $row["user_id"], "comment_id" => $row["comment_id"]);
 				}
-
 				for($i = count($comments) - 1; $i >= 0; --$i)
 				{
 					// Find the user name for this comment
@@ -49,12 +48,21 @@
 					{
 						$username = $usrnmQryRslt->fetch_assoc()["username"];
 					}
-					echo(
-						"<fieldset>" . 
+					$comment = "<fieldset>" . 
 							"<a href=./profile.php?id=" . $comments[$i]["user_id"] . "><p>" . $username . " says: </p></a>" .	// Create a link to the user profile
-							"<p>" . $comments[$i]["comment_text"] . "</p>" .	//This should just be whatever the comment text is
-						"</fieldset>"
-					);
+							"<p>" . $comments[$i]["comment_text"] . "</p>";	//This should just be whatever the comment text is
+					echo($comment);
+					if ($_SESSION["is_admin"] == 1 || $comments[$i]["user_id"] == $_SESSION["userid"])
+					{
+						//Make a button to delete this comment
+						echo(	"<form action=\"card_comment_delete.php\" method=\"POST\">" . 
+									"<input type=\"hidden\" name=\"comment-id\" value=\"" . $comments[$i]["comment_id"] . "\"/>" . 
+									"<input type=\"hidden\" name=\"id\" value=\"" . $_GET["id"] . "\"/>" . 
+									"<input type=\"submit\" value=\"Delete this comment\"/>" . 
+								"</form>"
+						);
+					}
+					echo("</fieldset>");
 				}
 			}
 		}

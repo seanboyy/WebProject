@@ -26,12 +26,13 @@
 				//'cookie_lifetime' => 86400,
 			]);
 			
-			$result1 = mysqli_query($conn, "SELECT user_id FROM user_data WHERE username = '$name' AND password = '$password'");
+			$result1 = mysqli_query($conn, "SELECT user_id, is_admin FROM user_data WHERE username = '$name' AND password = '$password'");
             $row = mysqli_fetch_array($result1);
 			$id = $row['user_id'];
 			
 			$_SESSION["logged_in"] = true; 
             $_SESSION["userid"] = $id; 
+			$_SESSION["is_admin"] = $row['is_admin'];
 			
 			include 'index.html';
         }

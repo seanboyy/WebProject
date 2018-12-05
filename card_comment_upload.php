@@ -50,28 +50,17 @@
 						echo $error; 
 					}
 				}
+				$stmt->close();
+				$conn->close();
 				echo ("<p><a href=\"./card-view.php?id=" . $_POST["id"] . "\">Back to the card</a></p>");	
 				forceRedirect("./card-view.php?id=" . $_POST["id"]);
-				exit();
 			}			
 			else
 			{
 				$statusMessage = "No POST request received.";
 			}
 			
-			// Found at https://css-tricks.com/snippets/php/redirect/
-			function forceRedirect($url = '/'){
-				if(!headers_sent()) {
-					header('HTTP/1.1 301 Moved Permanently');
-					header('Location:'.$url);  
-					header('Connection: close');
-					exit;
-				}
-				else {
-					echo 'location.replace('.$url.');';
-				}
-				exit;
-			}
+		include "./redirect.php";
 		?>
 	</body>
 </html>
