@@ -1,10 +1,10 @@
 <?php
-	session_start();
+	/*session_start();
 	if(!isset($_SESSION["userid"]))
 	{
 		include "./redirect.php";
 		forceRedirect("./login.html");
-	}
+	}*/
 ?>
 <!DOCTYPE html>
 <html>
@@ -30,10 +30,6 @@
 		<!-- Header is dynamically loaded using AJAX-->
 		<div id="header" class="row"></div>
 		
-		<!-- Do your queries and show off the deck here. --> 
-		
-		
-		<!-- Display Comments -->
 		<?php
 			$conn = mysqli_connect('localhost', 'root', '', 'card_database');
 			if($conn->connect_errno)
@@ -51,6 +47,14 @@
 				}
 				else
 				{
+					echo("<p class=\"text-center title\">".$deck[0][4]."</p>");
+					echo("<div class=\"deckView\">");
+					$deckList = explode(' ', $deck[0][1]);
+					for ($i = 0; $i < count($deckList); $i++) {
+						echo("<img class=\"cardFormat\" src=\"".$deckList[$i]."\"/>");
+					}
+					echo("</div>");
+					echo("<p class=\"text-center\">".$deck[0][2]."</p>");
 					include "./deck_comments.php";
 				}
 			}
