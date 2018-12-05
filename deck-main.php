@@ -71,7 +71,7 @@
 											<table>
 												<tbody>
 													<tr>
-														<td>
+														<td class='upvoteButton'>
 															<input type='button' onclick='doUpvote(".$reversed[$i][1].")' value='Upvote'/>
 														</td>
 													</tr>
@@ -81,7 +81,7 @@
 														"</td>
 													</tr>
 													<tr>
-														<td>
+														<td class='downvoteButton'>
 															<input type='button' onclick='doDownvote(".$reversed[$i][1].")' value='Downvote'/>
 														</td>
 													</tr>
