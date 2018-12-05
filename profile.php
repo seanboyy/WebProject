@@ -89,12 +89,12 @@
 					else
 					{
 						
-						$result = $conn->query("SELECT deck_id FROM deck_database WHERE creator_id = '$userId'");
+						$result = $conn->query("SELECT title, deck_id, cards FROM deck_database WHERE creator_id = '$userId'");
 						$reversed = array_reverse($result->fetch_all());
-						for($i = 0; $i < count($reversed); ++$i)
+						for($i = 0; $i < count($reversed); $i++)
 						{
-							echo ("<div><a href='./card-view.php?id=" . $reversed[$i][0] . "'><img alt='" .
-							$reversed[$i][0] . "' src='" . $reversed[$i][1] . "' class='cardFormat'/></a></div>");
+							echo ("<div><p>".$reversed[$i][0]."</p><a href='./deck-view.php?id=" . $reversed[$i][1] . "'><img alt='" .
+							$reversed[$i][1] . "' src='" . explode(' ', $reversed[$i][2])[0] . "' class='cardFormat'/></a></div>");
 						}
 					}
 				?>
