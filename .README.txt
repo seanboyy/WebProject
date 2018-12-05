@@ -1,0 +1,27 @@
+We still have not completed these requirements:
+
+Note: given the scale of the project, these requirements are a trivial percentage of the total, 
+and should fall under the "2-3 small requirements".
+
+A user can view images of cards with the highest ratings in the database
+An administrator can view images of cards with the highest ratings in the database
+
+A user can look up existing cards to insert into a comment
+An administrator can look up existing cards to insert into a comment
+An administrator can remove comments on cards
+
+A user can rate decks
+A user can hover over a deck to see more information
+An administrator can rate decks
+An administrator can hover over a deck to see more information
+
+A user can rate decks
+An administrator can rate decks
+A user can look up existing cards to insert into a comment
+An administrator can look up existing cards to insert into a comment
+A user can edit their own decks
+An administrator can promote a user to a new admin account
+
+And we have not completed anything that was in the optional column, 
+since these requirements were stretch goals, 
+and are thus not required to be implemented at this time
