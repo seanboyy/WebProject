@@ -86,7 +86,7 @@ function doUpvote(cardNum){
 		var fun = wrapFunction(updateText, document, ['#mpp' + cardNum, newCount[1]]);
 		funqueue2.push(fun);
 	});
-	cards[cardNum - 1].hasUpvoted = !cards[cardNum - 1].hasUpvoted
+	cards[cardNum - 1].hasUpvoted = !cards[cardNum - 1].hasUpvoted;
 }
 
 function doDownvote(cardNum){
@@ -103,7 +103,27 @@ function doDownvote(cardNum){
 		var fun = wrapFunction(updateText, document, ['#mpp' + cardNum, newCount[1]]);
 		funqueue2.push(fun);
 	});
-	cards[cardNum - 1].hasDownvoted = !cards[cardNum - 1].hasDownvoted
+	cards[cardNum - 1].hasDownvoted = !cards[cardNum - 1].hasDownvoted;
+}
+
+function deleteDeck(deckID){
+	var url = "/WebProject/delete-deck.php?id=" + deckID;
+	console.log(url);
+	var jqxhr = $.get(url);
+	jqxhr.done(function(data){
+		console.log("Deck Deleted!");
+		window.location.href = 'deck-main.php';
+	});
+}
+
+function deleteCard(cardID){
+	var url = "/WebProject/delete-card.php?id=" + cardID;
+	console.log(url);
+	var jqxhr = $.get(url);
+	jqxhr.done(function(data){
+		console.log("Card Deleted!");
+		window.location.href = 'index.html';
+	});
 }
 
 /*

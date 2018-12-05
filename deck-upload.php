@@ -54,6 +54,8 @@
 					$stmt = $conn->prepare("INSERT INTO `deck_database` VALUES (?, ?, ?, ?, ?, ?)");
 					$stmt->bind_param("issisi", $deckid[0], $_POST["deck-list"], $_POST["description"], $userid, $_POST["deck-name"], $points);
 					$stmt->execute();
+					include "./redirect.php";
+					forceRedirect("./deck-main.php");
 				}
 			}
 			else
