@@ -32,22 +32,21 @@ function doEntry(cardNum, editSpan){
 	oldHTML = editSpan.innerHTML;
 	setTimeout(function(){
 		if(hovering && !doneonce){
-			var newcontent = "<span style='display:inline-block'><table><tbody><tr><td>"
+			var newcontent = "<table><tbody><tr><td>" + cards[cardNum - 1].defaultHTML + "</td><td><table><tbody><tr><td>"
 			var url = "/WebProject/get-card-data.php?id=" + cardNum;
 			var jqxhr = $.get(url);
 			jqxhr.done(function(data){
 				var desc = data.split(/<.?body>/);
-				console.log(desc[1]);
-				newcontent = newcontent.concat("Description: " + desc[1]);
-				newcontent = newcontent.concat("</td></tr><tr><td><form><table><tbody><tr><td><input type='button' onclick='doUpvote(" + cardNum + ")' value='Upvote'></td><td id='mainpagepoints'>");
+				if(desc[1] != "") newcontent = newcontent.concat("Description: " + desc[1]);
+				else newcontent = newcontent.concat("User did not upload a description");
+				newcontent = newcontent.concat("</td></tr><tr><td><form><table><tbody><tr><td><input type='button' onclick='doUpvote(" + cardNum + ")' value='Upvote'></td><td id='mainpagepoints" + cardNum + "'>");
 				url2 = "/WebProject/get-points.php?type=card&id=" + cardNum;
-				jqxhr2 = $.get(url);
+				jqxhr2 = $.get(url2);
 				jqxhr2.done(function(data2){
 					var points = data2.split(/<.?body>/);
-					console.log(points[1]);
 					newcontent = newcontent.concat(points[1]);
-					newcontent = newcontent.concat("</td><td><input type='button' onclick='doDownvote(" + cardNum + ")' value='Downvote'></td></tr></tbody></table></form></td></tr></tbody></table></span>");
-					editSpan.innerHTML += newcontent;
+					newcontent = newcontent.concat("</td><td><input type='button' onclick='doDownvote(" + cardNum + ")' value='Downvote'></td></tr></tbody></table></form></td></tr></tbody></table>");
+					editSpan.innerHTML = newcontent;
 				});
 			});
 			doneonce = true;
@@ -62,11 +61,35 @@ function doLeave(cardNum, editSpan){
 }
 
 function doUpvote(cardNum){
-	
+	var getString = "type=card&isUpvoting&";
+	if(cards[cardNum - 1].hasUpvoted) getString = getString.concat("hasUpvoted&");
+	if(cards[cardNum - 1].hasDownvoted) getString = getString.concat("hasDownvoted&");
+	cards[cardNum - 1].hasDownvoted = false;
+	getString = getString.concat("id=" + cardNum);
+	var url = "/WebProject/do-voting.php?" + getString;
+	console.log(url);
+	var jqxhr = $.get(url);
+	jqxhr.done(function(data){
+		var newCount = data.split(/<.?body>/);
+		$("#mainpagepoints").html(newCount[1]);
+	});
+	cards[cardNum - 1].hasUpvoted = !cards[cardNum - 1].hasUpvoted
 }
 
 function doDownvote(cardNum){
-	
+	var getString = "type=card&isDownvoting&";
+	if(cards[cardNum - 1].hasUpvoted) getString = getString.concat("hasUpvoted&"); 
+	cards[cardNum - 1].hasUpvoted = false;
+	if(cards[cardNum - 1].hasDownvoted) getString = getString.concat("hasDownvoted&");
+	getString = getString.concat("id=" + cardNum);
+	var url = "/WebProject/do-voting.php?" + getString;
+	console.log(url);
+	var jqxhr = $.get(url);
+	jqxhr.done(function(data){
+		var newCount = data.split(/<.?body>/);
+		$("#mainpagepoints").html(newCount[1]);
+	});
+	cards[cardNum - 1].hasDownvoted = !cards[cardNum - 1].hasDownvoted
 }
 
 /*
