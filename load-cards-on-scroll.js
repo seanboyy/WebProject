@@ -1,5 +1,7 @@
 var funqueue = [];
 
+var funqueue2 = [];
+
 $(document).ready(function(){
 	funqueue.push(loadImageOurs);
 	/*
@@ -8,6 +10,16 @@ $(document).ready(function(){
 	}
 	*/
 });
+
+var wrapFunction = function(fn, context, params){
+	return function(){
+		fn.apply(context, params);
+	}
+}
+
+function updateText(el, text){
+	$(el).html(text);
+}
 
 var hovering = false;
 
@@ -32,14 +44,14 @@ function doEntry(cardNum, editSpan){
 	oldHTML = editSpan.innerHTML;
 	setTimeout(function(){
 		if(hovering && !doneonce){
-			var newcontent = "<table><tbody><tr><td>" + cards[cardNum - 1].defaultHTML + "</td><td><table><tbody><tr><td>"
+			var newcontent = "<table><tbody><tr><td>" + reversed_cards[cardNum - 1].defaultHTML + "</td><td><table><tbody><tr><td>"
 			var url = "/WebProject/get-card-data.php?id=" + cardNum;
 			var jqxhr = $.get(url);
 			jqxhr.done(function(data){
 				var desc = data.split(/<.?body>/);
 				if(desc[1] != "") newcontent = newcontent.concat("Description: " + desc[1]);
 				else newcontent = newcontent.concat("User did not upload a description");
-				newcontent = newcontent.concat("</td></tr><tr><td><form><table><tbody><tr><td><input type='button' onclick='doUpvote(" + cardNum + ")' value='Upvote'></td><td id='mainpagepoints" + cardNum + "'>");
+				newcontent = newcontent.concat("</td></tr><tr><td><form><table><tbody><tr><td><input type='button' onclick='doUpvote(" + cardNum + ")' value='Upvote'></td><td id='mpp" + cardNum + "'>");
 				url2 = "/WebProject/get-points.php?type=card&id=" + cardNum;
 				jqxhr2 = $.get(url2);
 				jqxhr2.done(function(data2){
@@ -71,9 +83,10 @@ function doUpvote(cardNum){
 	var jqxhr = $.get(url);
 	jqxhr.done(function(data){
 		var newCount = data.split(/<.?body>/);
-		$("#mainpagepoints").html(newCount[1]);
+		var fun = wrapFunction(updateText, document, ['#mpp' + cardNum, newCount[1]]);
+		funqueue2.push(fun);
 	});
-	cards[cardNum - 1].hasUpvoted = !cards[cardNum - 1].hasUpvoted
+	cards[cardNum - 1].hasUpvoted = !cards[cardNum - 1].hasUpvoted;
 }
 
 function doDownvote(cardNum){
@@ -87,9 +100,30 @@ function doDownvote(cardNum){
 	var jqxhr = $.get(url);
 	jqxhr.done(function(data){
 		var newCount = data.split(/<.?body>/);
-		$("#mainpagepoints").html(newCount[1]);
+		var fun = wrapFunction(updateText, document, ['#mpp' + cardNum, newCount[1]]);
+		funqueue2.push(fun);
 	});
-	cards[cardNum - 1].hasDownvoted = !cards[cardNum - 1].hasDownvoted
+	cards[cardNum - 1].hasDownvoted = !cards[cardNum - 1].hasDownvoted;
+}
+
+function deleteDeck(deckID){
+	var url = "/WebProject/delete-deck.php?id=" + deckID;
+	console.log(url);
+	var jqxhr = $.get(url);
+	jqxhr.done(function(data){
+		console.log("Deck Deleted!");
+		window.location.href = 'deck-main.php';
+	});
+}
+
+function deleteCard(cardID){
+	var url = "/WebProject/delete-card.php?id=" + cardID;
+	console.log(url);
+	var jqxhr = $.get(url);
+	jqxhr.done(function(data){
+		console.log("Card Deleted!");
+		window.location.href = 'index.html';
+	});
 }
 
 /*
@@ -121,6 +155,25 @@ function loadImageOurs(){
 			cards.push(new cardHolder(false, false, inner[0]));
 		}
 		reversed_cards = cards.reverse();
+		var url2 = "/WebProject/get-ids.php";
+		var jqxhr2 = $.get(url2);
+		jqxhr2.done(function(data2){
+			var _ids = data2.split(/<.?body>/);
+			var __ids = _ids[1].split(/<br>/);
+			var url3 = "/WebProject/get-max.php?type=card";
+			var jqxhr3 = $.get(url3);
+			jqxhr3.done(function(data3){
+				var _max = data3.split(/<.?body>/);
+				for(var i = cards.length; i < parseInt(_max[1]); ++i){
+					reversed_cards.push(new cardHolder(false, false, ""));
+				}
+				reversed_ids = __ids.reverse()
+				for(var i = reversed_ids.length - 1 ; i >= 0; --i){
+					reversed_cards[reversed_ids[i] - 1] = reversed_cards[i];
+				}
+				console.log(JSON.stringify(reversed_cards));
+			});
+		});
 	});
 }
 
@@ -151,6 +204,12 @@ function sleep(milliseconds) {
 		}
 	}
 }
+
+function executeQueue2(){
+	if(funqueue2.length > 0) (funqueue2.shift())();
+}
+
+setInterval(executeQueue2, 5);
 
 function executeQueue(){
 	if(funqueue.length > 0) (funqueue.shift())();

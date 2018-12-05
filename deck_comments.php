@@ -1,7 +1,7 @@
 <!--  THIS FILE SHOULD ONLY BE CALLED IN A PHP FILE THAT HAS A CARD/DECK ID IN THE $_GET SUPERGLOBAL CALLED "id" -->
 <!--  THIS FILE SHOULD ONLY BE CALLED IN A PHP FILE THAT ALSO HAS AN ACTIVE SESSION WITH VARIABLE "userid" -->
 <!-- This creates a form that allows the user to add new comments -->
-<form action="./card_comment_upload.php" method="POST">
+<form action="./deck_comments_upload.php" method="POST">
 	<fieldset>
 		<legend>New Comment</legend>
 		<input type="textarea" name="comment_text" rows="4" cols="25" placeholder="New Comment here!"></input>
