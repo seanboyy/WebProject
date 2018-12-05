@@ -30,7 +30,25 @@
 		<div id="header" class="row"></div>
 		<div id="cards" class="text-center">
 		</div>
-		<p> Logged in as <?php echo $_SESSION['userid'] ?>! However, you are not welcome at all... F to pay respects</p>
+		<p> Logged in as 
+		<?php 
+			$result1 = mysqli_query($conn, "SELECT username FROM user_data WHERE user_id = ".$_SESSION['userid']);
+            $row = mysqli_fetch_array($result1);
+			$user = $row['username'];
+			
+			echo $user;
+		?>
+		, who is
+		<?php 
+			if($_SESSION['isadmin'] == 1)
+			{
+				echo " an admin";
+			}
+			else{
+				echo " a user";
+			}
+		?>
+		! However, you are not welcome at all... F to pay respects</p>
 	</body>
 </html>
 

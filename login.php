@@ -30,8 +30,21 @@
             $row = mysqli_fetch_array($result1);
 			$id = $row['user_id'];
 			
-			$_SESSION["logged_in"] = true; 
-            $_SESSION["userid"] = $id; 
+			$result1 = mysqli_query($conn, "SELECT is_admin FROM user_data WHERE username = '$name' AND password = '$password'");
+			$row = mysqli_fetch_array($result1);
+			$admin_check = $row['is_admin'];
+			
+			if($admin_check == 1){
+				$_SESSION["logged_in"] = true; 
+				$_SESSION["isadmin"] = 1;
+				$_SESSION["userid"] = $id;
+			}
+			
+			else{
+				$_SESSION["logged_in"] = true; 
+				$_SESSION["isadmin"] = 0;
+				$_SESSION["userid"] = $id; 
+			}
 			
 			include 'index.html';
         }
