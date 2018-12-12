@@ -3,24 +3,27 @@
 	padding-top:15px;
 	font-family: 'Milonga', cursive;
 	margin:0px;
+	background-color:#333333 !important
 }
 .headIcon{
 	max-height:100px;
 	max-width:100%;
 	padding:0px;
 	border:none;
+	background-color:#333333 !important
 }
 .headCol{
 	height:100px;
 	width:100%;
-	outline: 5px solid black;
+	outline: 5px solid #B1B1B1;
+	background-color:#333333 !important;
 }
 .selectionArea {
 	margin-bottom:20px;
 }
 .insideSelection {
 	height:50px;
-	background-color:#515a5a;
+		background-color:#333333 !important;
 }
 .noPad {
 	padding-right:0px !important;
@@ -85,7 +88,7 @@ input, select, textarea {
 	height:30vw;
 	max-height:450px;
 	max-width:300px;
-	outline: 5px solid gray;
+	outline: 5px solid #B1B1B1;
 }
 
 .preview {
