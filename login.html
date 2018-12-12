@@ -9,7 +9,7 @@
 				
 		<script type="text/javascript" src="http://code.jquery.com/jquery-3.1.0.min.js"></script>
 		<script type="text/javascript" src="load-cards-on-scroll.js"></script>
-		<script type="text/javascript" src="loadHeader.js"></script>
+		<!--<script type="text/javascript" src="loadHeader.js"></script> -->
 		
 		<!-- For Bootstrap: -->
 		<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -20,8 +20,32 @@
   </head>
 
   <body>
-	<!-- Header is dynamically loaded using AJAX-->
-	<div id="header" class="row"></div>
+	<div id="header" class="row">
+		<div class="row"> 
+			<div class="col-xs-3 noPad">
+				<div class="headCol text-center">
+					<button type="button" class="headIcon" id="tabs">
+						<img alt="Tabs" src="TabsIcon.png" class="headIcon"/>
+					</button>
+				</div>
+			</div>
+			<div class="col-xs-6 noPad">
+				<div class="headCol text-center">
+					<p class="title">Magic Maker</p>
+				</div>
+			</div>
+			<div class="col-xs-3 noPad">
+				<div class="headCol text-center">
+					<button type="button" class="headIcon" id="options">
+						<img alt="Options" src="OptionsIcon.png" class="headIcon"/>
+					</button>
+				</div>
+			</div>
+		</div>
+		<div id="selectionArea" class="selectionArea">
+		</div>
+	</div>
+	
 	<div class="row">
 		<div class="col-sm-6 text-center">
 			<p class="title">Sign In</p>

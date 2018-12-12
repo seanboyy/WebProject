@@ -1,5 +1,7 @@
 <?php
-	session_start();
+	if (session_status() !== PHP_SESSION_ACTIVE) {
+		session_start();
+	}
 	if(!isset($_SESSION["userid"]))
 	{
 		include "./redirect.php";
@@ -29,6 +31,7 @@
 	<body>
 		<!-- Header is dynamically loaded using AJAX-->
 		<div id="header" class="row"></div>
+		<div>
 		<?php
 					$conn = mysqli_connect('localhost', 'root', '', 'card_database');
 					if($conn->connect_errno)
@@ -37,21 +40,22 @@
 					}
 					else
 					{
-						// Double check we have,  in fact, a card we're displaying
+						// Double check we have,  in fact, a deck we're displaying
 						$result = $conn->query("SELECT (creator_id) FROM `deck_database` WHERE deck_id = " . $_GET['id']);
-						$card = $result->fetch_all();	
-						$_SESSION['creator_id'] = $card[0][0];
-						$result2 = $conn->query("SELECT username FROM user_data WHERE user_id = " . $card[0][0]);
-						$card2 = $result2->fetch_all();
+						$deck = $result->fetch_all();	
+						$_SESSION['creator_id'] = $deck[0][0];
+						$result2 = $conn->query("SELECT username FROM user_data WHERE user_id = " . $deck[0][0]);
+						$deck2 = $result2->fetch_all();
 						echo("<label for=\"creator_id\">Creator Name: </label>");
-							//<!-- Pull card name from database -->
-							echo("<a href=\"other_profiles.php\"> " . $card2[0][0] . "</a><br />");
-						if ($card[0][0]==$_SESSION['userid'] || $_SESSION['isadmin'] == 1)
+							//<!-- Pull deck name from database -->
+							echo("<a href=\"other_profiles.php\"> " . $deck2[0][0] . "</a><br />");
+						if ($deck[0][0]==$_SESSION['userid'] || $_SESSION['isadmin'] == 1)
 						{
 							echo("<input type='button' onclick='deleteDeck(".$_GET['id'].")' value='Delete Deck'>");
 						}
 					}
 				?>
+		</div>
 		<?php
 			$conn = mysqli_connect('localhost', 'root', '', 'card_database');
 			if($conn->connect_errno)

@@ -1,7 +1,6 @@
 .title{
 	font-size:300%;
 	padding-top:15px;
-	color:#B22222;
 	font-family: 'Milonga', cursive;
 	margin:0px;
 }
@@ -33,19 +32,20 @@
 	max-width:195px;
 }
 
-* {
-	background-color:darkgray;
+div, p, button, html, fieldset, legend {
+	background-color:#424949;
 }
 
 a {
 	font-size:200%;
 	margin:0px 10px;
-	color:#A22222 !important;
+	color:#B1B1B1 !important;
 }
 
 body {
 	min-width: 500px; 
 	margin: 0 auto;
+	color: #B1B1B1 !important;
 }
 label {
 	margin:0px  !important;
@@ -54,9 +54,14 @@ label {
 }
 .center {
 	margin: 0 auto !important;
+	border:none !important;
 }
 input, select, textarea {
 	width:40%;
+	background-color:#616A6B !important;
+	overflow: auto;
+	border: 2px solid #B1B1B1 !important;
+	outline: none;
 }
 .smallInput {
 	width:19.8% !important;
@@ -88,7 +93,7 @@ input, select, textarea {
 	border-right: 5px solid gray;
 }
 .deckView {
-	height:450px !important;
+	height:60vh !important;
 	overflow-y:scroll;
 }
 #cardSpan {
@@ -102,4 +107,7 @@ input, select, textarea {
 }
 .invisible {
 	display: none;
+}
+.row {
+	margin:0px !important;
 }

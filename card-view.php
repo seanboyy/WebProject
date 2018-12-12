@@ -150,7 +150,7 @@
 							//<!-- Pull card description from database -->
 							echo(" " . $card[9] . "<br />");
 							// Display a button to edit the card if it belongs to the user
-							if ($card[8] == $_SESSION["userid"])
+							if ($card[8] == $_SESSION["userid"] || $_SESSION['isadmin'] == 1)
 							{
 								echo(	"<form method=\"POST\" action=\"card-upload.php\" enctype=\"multipart/form-data\">" .
 										"<input type=\"hidden\" name=\"card-id\" value=" . $card[0] . "\"/>"	.	
