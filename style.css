@@ -107,7 +107,8 @@ legend {
 	height:60vh !important;
 	overflow-y:scroll;
 }
-#cardSpan {
+.cardSpan {
+	vertical-align: top;
 	display:inline-block;
 	height:272px;
 }

@@ -21,7 +21,7 @@ function updateText(el, text){
 	$(el).html(text);
 }
 
-var hovering = false;
+var hovering = 0;
 
 var doneonce = false;
 
@@ -40,10 +40,10 @@ var cards = [];
 var reversed_cards;
 
 function doEntry(cardNum, editSpan){
-	hovering = true;
+	hovering = editSpan.id;
 	oldHTML = editSpan.innerHTML;
 	setTimeout(function(){
-		if(hovering && !doneonce){
+		if(hovering == editSpan.id && !doneonce){
 			var newcontent = "<table><tbody><tr><td>" + reversed_cards[cardNum - 1].defaultHTML + "</td><td><table><tbody><tr><td>"
 			var url = "/WebProject/get-card-data.php?id=" + cardNum;
 			var jqxhr = $.get(url);
@@ -67,7 +67,7 @@ function doEntry(cardNum, editSpan){
 }
 
 function doLeave(cardNum, editSpan){
-	hovering = false;
+	hovering = 0;
 	editSpan.innerHTML = reversed_cards[cardNum - 1].defaultHTML;
 	doneonce = false;
 }
