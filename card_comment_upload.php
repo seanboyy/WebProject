@@ -7,6 +7,7 @@
 	</head>
 	<body>
 		<?php
+			include "./redirect.php";
 			$servername = "127.0.0.1";
 			$username = "root";
 			$password = "";
@@ -59,8 +60,6 @@
 			{
 				$statusMessage = "No POST request received.";
 			}
-			
-		include "./redirect.php";
 		?>
 	</body>
 </html>

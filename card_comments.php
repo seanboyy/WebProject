@@ -55,9 +55,10 @@
 					if ($_SESSION["isadmin"] == 1 || $comments[$i]["user_id"] == $_SESSION["userid"])
 					{
 						//Make a button to delete this comment
-						echo(	"<form action=\"card_comment_delete.php\" method=\"POST\">" . 
-									"<input type=\"hidden\" name=\"comment-id\" value=\"" . $comments[$i]["comment_id"] . "\"/>" . 
+						echo(	"<form action=\"comment_delete.php\" method=\"POST\">" . 
+									"<input type=\"hidden\" name=\"comment_id\" value=\"" . $comments[$i]["comment_id"] . "\"/>" . 
 									"<input type=\"hidden\" name=\"id\" value=\"" . $_GET["id"] . "\"/>" . 
+									"<input type=\"hidden\" name=\"is_card\" value=\"1\">" . 
 									"<input type=\"submit\" value=\"Delete this comment\"/>" . 
 								"</form>"
 						);

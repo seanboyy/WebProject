@@ -26,11 +26,12 @@
 				if ($conn->connect_errno) 
 				{
 					$statusMessage = "Could not connect to database";
+					echo($statusMessage);
 				}
 				else
 				{
-					if (isset($_POST["comment-id"]))
-					{
+					if (isset($_POST["comment_id"]))
+					{				
 						echo("<br>We are deleting this comment now...");
 						if ($stmt = $conn->prepare("DELETE FROM `comments` WHERE `comments`.`comment_id` =?"))					
 						{
@@ -50,15 +51,24 @@
 							echo $error; 
 						}
 						$stmt->close();
+						
 					}
 					else
 					{
 						echo("<br>No id passed");
 					}
 				}
-				echo ("<p><a href=\"./card-view.php?id=" . $_POST["id"] . "\">Back to the card</a></p>");	
-				//forceRedirect("./card-view.php?id=" . $_POST["id"]);
-				//exit();
+				if ($_POST["is_card"] == 1)
+				{				
+					echo ("<p><a href=\"./card-view.php?id=" . $_POST["id"] . "\">Back to the card</a></p>");	
+					forceRedirect("./card-view.php?id=" . $_POST["id"]);
+				}
+				else
+				{
+					echo ("<p><a href=\"./deck-view.php?id=" . $_POST["id"] . "\">Back to the deck</a></p>");	
+					forceRedirect("./deck-view.php?id=" . $_POST["id"]);
+				}
+				exit();
 			}			
 			else
 			{

@@ -76,12 +76,8 @@
 						$result2 = $conn->query("SELECT username FROM user_data WHERE user_id = " . $card[0][0]);
 						$card2 = $result2->fetch_all();
 						echo("<label for=\"creator_id\">Creator Name: </label>");
-							//<!-- Pull card name from database -->
-							echo("<a href=\"other_profiles.php\"> " . $card2[0][0] . "</a><br />");
-						if ($card[0][0]==$_SESSION['userid'] || $_SESSION['isadmin'] == 1)
-						{
-							echo("<input type='button' onclick='deleteCard(".$_GET['id'].")' value='Delete Card'><br />");
-						}
+						//<!-- Pull card name from database -->
+						echo("<a href=\"other_profiles.php\"> " . $card2[0][0] . "</a><br />");
 					}
 				?>
 				<?php
@@ -165,6 +161,10 @@
 										"<input type=\"hidden\" name=\"description\" value=\"" . preg_replace($pattern, "%20", $card[9]) . "\"/>" .
 										"<input type=\"submit\" value=\"Edit Card\"/>" . 
 										"</form>");
+							}		
+							if ($card[0][0]==$_SESSION['userid'] || $_SESSION['isadmin'] == 1)
+							{
+								echo("<input type='button' onclick='deleteCard(".$_GET['id'].")' value='Delete Card'><br />");
 							}
 						}
 					}
