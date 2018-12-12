@@ -35,7 +35,7 @@
 			</div>
 			<div class="col-sm-3 text-center">
 				<div class="cardImageDisplay">
-					<img alt="Card Image"/>
+					<img class="preview" id="cardPreview" alt="Card Image"/>
 				</div>
 			</div>
 			<div class="col-sm-7 text-center">

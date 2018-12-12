@@ -4,6 +4,12 @@ var funqueue2 = [];
 
 $(document).ready(function(){
 	funqueue.push(loadImageOurs);
+	$('#f-card-img').change(function(e) {
+		var filename = URL.createObjectURL(e.target.files[0]);
+		//
+		console.log(filename);
+		$("#cardPreview").attr('src', filename);
+	});
 	/*
 	for(var i = 0; i < 10; ++i){
 		funqueue.push(loadImage);
@@ -44,7 +50,7 @@ function doEntry(cardNum, editSpan){
 	oldHTML = editSpan.innerHTML;
 	setTimeout(function(){
 		if(hovering == editSpan.id && !doneonce){
-			var newcontent = "<table><tbody><tr><td>" + reversed_cards[cardNum - 1].defaultHTML + "</td><td><table><tbody><tr><td>"
+			var newcontent = "<table><tbody><tr><td>" + reversed_cards[cardNum - 1].defaultHTML + "</td><td><table><tbody><tr><td class=\"descrip\">"
 			var url = "/WebProject/get-card-data.php?id=" + cardNum;
 			var jqxhr = $.get(url);
 			jqxhr.done(function(data){
