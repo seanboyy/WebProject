@@ -3,7 +3,7 @@
 <!-- This creates a form that allows the user to add new comments -->
 <form action="./card_comment_upload.php" method="POST">
 	<fieldset>
-		<legend>New Comment</legend>
+		<legend>Comments</legend>
 		<input type="textarea" name="comment_text" rows="4" cols="25" placeholder="New Comment here!"></input>
 		<input type="submit" value="Post Comment"></input>
 		<?php
@@ -52,7 +52,7 @@
 							"<a href=./profile.php?id=" . $comments[$i]["user_id"] . "><p>" . $username . " says: </p></a>" .	// Create a link to the user profile
 							"<p>" . $comments[$i]["comment_text"] . "</p>";	//This should just be whatever the comment text is
 					echo($comment);
-					if ($_SESSION["is_admin"] == 1 || $comments[$i]["user_id"] == $_SESSION["userid"])
+					if ($_SESSION["isadmin"] == 1 || $comments[$i]["user_id"] == $_SESSION["userid"])
 					{
 						//Make a button to delete this comment
 						echo(	"<form action=\"card_comment_delete.php\" method=\"POST\">" . 

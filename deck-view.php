@@ -31,7 +31,7 @@
 	<body>
 		<!-- Header is dynamically loaded using AJAX-->
 		<div id="header" class="row"></div>
-		<div>
+		<div class="text-center">
 		<?php
 					$conn = mysqli_connect('localhost', 'root', '', 'card_database');
 					if($conn->connect_errno)

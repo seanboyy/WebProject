@@ -34,7 +34,10 @@
 			$sql = "INSERT INTO user_data VALUES ('$userid[0]','$name', '$email', '$password', 0, 0)" ;
 
 			if ($conn->query($sql) === TRUE) {
-				include 'accountCreated.php';
+				//include 'accountCreated.php';
+				include 'login.php';
+				include "./redirect.php";
+				forceRedirect("./index.html");
 			} else {
 				echo "Error: " . $sql . "<br>" . $conn->error;
 			}

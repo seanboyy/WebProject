@@ -173,13 +173,13 @@
 							<tbody>
 								<tr>
 									<td class='upvoteButton'>
-										<input class=\"smallInput\" type='button' onclick='doUpvote(".$_GET['id'].")' value='Upvote'>
+										<input class=\"vote\" type='button' onclick='doUpvote(".$_GET['id'].")' value='Upvote'>
 									</td>
 									<td id='mpp".$_GET['id']."'>"
 											.$conn->query("SELECT points FROM `custom_cards` WHERE card_id = ".$_GET['id'])->fetch_all()[0][0].
 									"</td>
 									<td class='downvoteButton'>
-										<input class=\"smallInput\" type='button' onclick='doDownvote(".$_GET['id'].")' value='Downvote'>
+										<input class=\"vote\" type='button' onclick='doDownvote(".$_GET['id'].")' value='Downvote'>
 									</td>
 								</tr>
 							</tbody>

@@ -36,6 +36,10 @@ div, p, button, html, fieldset, legend {
 	background-color:#424949;
 }
 
+p {
+	margin-bottom: 0px !important;
+}
+
 a {
 	font-size:200%;
 	margin:0px 10px;
@@ -63,6 +67,9 @@ input, select, textarea {
 	border: 2px solid #B1B1B1 !important;
 	outline: none;
 }
+.vote {
+	width:100% !important;
+}
 .smallInput {
 	width:19.8% !important;
 }
@@ -85,6 +92,10 @@ input, select, textarea {
 	max-width:300px;
 	outline: 5px solid gray;
 	margin: auto;
+}
+legend {
+	color: #B1B1B1 !important;
+	border-bottom: none !important;
 }
 .leftLine {
 	border-left: 5px solid gray;

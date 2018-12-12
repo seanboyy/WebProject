@@ -3,7 +3,7 @@
 <!-- This creates a form that allows the user to add new comments -->
 <form action="./deck_comments_upload.php" method="POST">
 	<fieldset>
-		<legend>New Comment</legend>
+		<legend>Comment</legend>
 		<input type="textarea" name="comment_text" rows="4" cols="25" placeholder="New Comment here!"></input>
 		<input type="submit" value="Post Comment"></input>
 		<?php
