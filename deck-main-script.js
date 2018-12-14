@@ -13,9 +13,7 @@ $(document).ready(function(){
 	});
 });
 
-function deckHolder(up, down, html){
-	this.hasUpvoted = up;
-	this.hasDownvoted = down;
+function deckHolder(html){
 	this.defaultHTML = html;
 }
 
@@ -66,9 +64,6 @@ function doLeave(deckNum, editSpan){
 
 function doUpvote(deckId){
 	var getString = "type=deck&isUpvoting&";
-	if(decks[deckId - 1].hasUpvoted) getString = getString.concat("hasUpvoted&");
-	if(decks[deckId - 1].hasDownvoted) getString = getString.concat("hasDownvoted&");
-	decks[deckId - 1].hasDownvoted = false;
 	getString = getString.concat("id=" + deckId);
 	var url = "/WebProject/do-voting.php?" + getString;
 	console.log(url);
@@ -78,14 +73,10 @@ function doUpvote(deckId){
 		var fun = wrapFunction(updateText, document, ['#dpu' + deckId, newCount[1]]);
 		funqueue.push(fun);
 	});
-	decks[deckId - 1].hasUpvoted = !decks[deckId - 1].hasUpvoted;
 }
 
 function doDownvote(deckId){
 	var getString = "type=deck&isDownvoting&";
-	if(decks[deckId - 1].hasUpvoted) getString = getString.concat("hasUpvoted&");
-	if(decks[deckId - 1].hasDownvoted) getString = getString.concat("hasDownvoted&");
-	decks[deckId - 1].hasUpvoted = false;
 	getString = getString.concat("id=" + deckId);
 	var url = "/WebProject/do-voting.php?" + getString;
 	console.log(url);
@@ -95,7 +86,6 @@ function doDownvote(deckId){
 		var fun = wrapFunction(updateText, document, ['#dpu' + deckId, newCount[1]]);
 		funqueue.push(fun);
 	});
-	decks[deckId - 1].hasDownvoted = !decks[deckId - 1].hasDownvoted;
 }
 
 function loadImageOurs(){
@@ -107,7 +97,7 @@ function loadImageOurs(){
 		var __images = _images[1].split(/<span.*?>/);
 		for(var i = 1; i < __images.length; ++i){
 			var inner = __images[i].split(/<.span>/);
-			decks.push(new deckHolder(false, false, inner[0]));
+			decks.push(new deckHolder(inner[0]));
 		}
 		reversed_decks = decks.reverse();
 		var url2 = "/WebProject/get-deck-ids.php";
@@ -120,7 +110,7 @@ function loadImageOurs(){
 			jqxhr3.done(function(data3){
 				var _max = data3.split(/<.?body>/);
 				for(var i = decks.length; i < parseInt(_max[1]); ++i){
-					reversed_decks.push(new deckHolder(false, false, ""));
+					reversed_decks.push(new deckHolder(""));
 				}
 				reversed_ids = __ids.reverse()
 				for(var i = reversed_ids.length - 1 ; i >= 0; --i){
