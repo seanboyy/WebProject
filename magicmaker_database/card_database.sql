@@ -64,7 +64,7 @@ CREATE TABLE `custom_cards` (
   `description` text CHARACTER SET utf8 COLLATE utf8_bin,
   `card_image` text CHARACTER SET utf8 COLLATE utf8_bin,
   `points` int(11) DEFAULT NULL,
-  `upvoters` text CHARACTER SET utf8 COLLATE utf8_bin NOT NULL
+  `upvoters` text CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
   `downvoters` text CHARACTER SET utf8 COLLATE utf8_bin NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='This is a table to store the user created cards.';
 
@@ -92,7 +92,7 @@ CREATE TABLE `deck_database` (
   `creator_id` int(11) DEFAULT NULL,
   `title` text CHARACTER SET utf8 COLLATE utf8_bin,
   `points` int(11) DEFAULT NULL,
-  `upvoters` text CHARACTER SET utf8 COLLATE utf8_bin NOT NULL
+  `upvoters` text CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
   `downvoters` text CHARACTER SET utf8 COLLATE utf8_bin NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
