@@ -13,9 +13,10 @@ $(document).ready(function(){
 	});
 });
 
-function DeckHolder(){
-	this.hasUpvoted = false;
-	this.hasDownvoted = false;
+function deckHolder(up, down, html){
+	this.hasUpvoted = up;
+	this.hasDownvoted = down;
+	this.defaultHTML = html;
 }
 
 var wrapFunction = function(fn, context, params){
@@ -95,6 +96,40 @@ function doDownvote(deckId){
 		funqueue.push(fun);
 	});
 	decks[deckId - 1].hasDownvoted = !decks[deckId - 1].hasDownvoted;
+}
+
+function loadImageOurs(){
+	var url = "/WebProject/get-deck-images.php";
+	var jqxhr = $.get(url);
+	jqxhr.done(function(data){
+		var _images = data.split(/<.?body>/);
+		$("#decks").append(_images[1]);
+		var __images = _images[1].split(/<span.*?>/);
+		for(var i = 1; i < __images.length; ++i){
+			var inner = __images[i].split(/<.span>/);
+			decks.push(new deckHolder(false, false, inner[0]));
+		}
+		reversed_decks = decks.reverse();
+		var url2 = "/WebProject/get-deck-ids.php";
+		var jqxhr2 = $.get(url2);
+		jqxhr2.done(function(data2){
+			var _ids = data2.split(/<.?body>/);
+			var __ids = _ids[1].split(/<br>/);
+			var url3 = "/WebProject/get-max.php?type=card";
+			var jqxhr3 = $.get(url3);
+			jqxhr3.done(function(data3){
+				var _max = data3.split(/<.?body>/);
+				for(var i = decks.length; i < parseInt(_max[1]); ++i){
+					reversed_decks.push(new deckHolder(false, false, ""));
+				}
+				reversed_ids = __ids.reverse()
+				for(var i = reversed_ids.length - 1 ; i >= 0; --i){
+					reversed_decks[reversed_ids[i] - 1] = reversed_cards[i];
+				}
+				console.log(JSON.stringify(reversed_decks));
+			});
+		});
+	});
 }
 
 function executeQueue(){
