@@ -64,7 +64,7 @@
 			}
 			else
 			{
-				// Double check we have,  in fact, a card we're displaying
+				// Double check we have,  in fact, a deck we're displaying
 				$result = $conn->query("SELECT * FROM `deck_database` WHERE deck_id = " . $_GET['id']);
 				$deck = $result->fetch_all();	
 				if (count($deck) == 0)
@@ -84,6 +84,32 @@
 					include "./deck_comments.php";
 				}
 			}
+		?>
+		<?php
+			$conn = mysqli_connect('localhost', 'root', '', 'card_database');
+			if($conn->connect_errno)
+			{
+				echo("failed to connect!");
+			}
+			else
+			{
+			}
+		echo "</div>";
+		echo "<table>
+				<tbody>
+					<tr>
+						<td class='upvoteButton'>
+							<input class=\"vote\" type='button' onclick='doUpvote(".$_GET['id'].")' value='Upvote'>
+						</td>
+						<td id='mpp".$_GET['id']."'>"
+								.$conn->query("SELECT points FROM `deck_database` WHERE deck_id = ".$_GET['id'])->fetch_all()[0][0].
+						"</td>
+						<td class='downvoteButton'>
+							<input class=\"vote\" type='button' onclick='doDownvote(".$_GET['id'].")' value='Downvote'>
+						</td>
+					</tr>
+				</tbody>
+			</table>";
 		?>
 	</body>
 </html>

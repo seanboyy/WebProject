@@ -65,6 +65,7 @@ CREATE TABLE `custom_cards` (
   `card_image` text CHARACTER SET utf8 COLLATE utf8_bin,
   `points` int(11) DEFAULT NULL,
   `upvoters` text CHARACTER SET utf8 COLLATE utf8_bin NOT NULL
+  `downvoters` text CHARACTER SET utf8 COLLATE utf8_bin NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='This is a table to store the user created cards.';
 
 --
@@ -72,11 +73,11 @@ CREATE TABLE `custom_cards` (
 --
 
 INSERT INTO `custom_cards` (`card_id`, `card_name`, `mana_cost`, `type`, `rarity`, `rules`, `power`, `toughness`, `creator_id`, `description`, `card_image`, `points`) VALUES
-(1, 'Anchoring', '4WWU', 'Enchantment', 7, 'Other permanents you control cannot leave the battlefield.\r\nIf a creature you control has toughness zero or less, it cannot attack.', 0, 0, 1, 'Have some cards you don\'t want to leave? Now they don\'t have to.', './card_images/Anchoring.png', 0),
-(2, 'Comet Storm Storm', 'XRRR', 'Sorccery', 7, 'Multikicker {1}\r\nChoose any target, then choose additional targets for each time this spell was kicked. This spell deals X damage to each of them.\r\nStorm', 0, 0, 1, 'Comet Storm Storm', './card_images/Comet Storm Storm.png', 0),
-(3, 'Cleanse', '2W', 'Instant', 6, 'Exile target nonland permanent you don\'t control\r\nOverload {6}{W}', 0, 0, 1, 'It\'s like cyclonic rift, but meaner', './card_images/Cleanse.png', 1),
-(4, 'Revenge', '2BB', 'Instant', 6, 'Destroy target creature.\r\nPainstorm', 0, 0, 1, '', './card_images/Revenge.png', 2),
-(5, 'Snowslide', 'SGW', 'Snow Instant', 5, 'Exile target creature. Its controller adds {C}{C}. Until end of turn, they don\'t lose this mana as steps and phases end.', 0, 0, 1, '', './card_images/Snowslide.png', 3);
+(1, 'Anchoring', '4WWU', 'Enchantment', 7, 'Other permanents you control cannot leave the battlefield.\r\nIf a creature you control has toughness zero or less, it cannot attack.', 0, 0, 1, 'Have some cards you don\'t want to leave? Now they don\'t have to.', './card_images/Anchoring.png', 0, "", ""),
+(2, 'Comet Storm Storm', 'XRRR', 'Sorccery', 7, 'Multikicker {1}\r\nChoose any target, then choose additional targets for each time this spell was kicked. This spell deals X damage to each of them.\r\nStorm', 0, 0, 1, 'Comet Storm Storm', './card_images/Comet Storm Storm.png', 0, "", ""),
+(3, 'Cleanse', '2W', 'Instant', 6, 'Exile target nonland permanent you don\'t control\r\nOverload {6}{W}', 0, 0, 1, 'It\'s like cyclonic rift, but meaner', './card_images/Cleanse.png', 1, "", ""),
+(4, 'Revenge', '2BB', 'Instant', 6, 'Destroy target creature.\r\nPainstorm', 0, 0, 1, '', './card_images/Revenge.png', 2, "", ""),
+(5, 'Snowslide', 'SGW', 'Snow Instant', 5, 'Exile target creature. Its controller adds {C}{C}. Until end of turn, they don\'t lose this mana as steps and phases end.', 0, 0, 1, '', './card_images/Snowslide.png', 3, "", "");
 
 -- --------------------------------------------------------
 
@@ -92,6 +93,7 @@ CREATE TABLE `deck_database` (
   `title` text CHARACTER SET utf8 COLLATE utf8_bin,
   `points` int(11) DEFAULT NULL,
   `upvoters` text CHARACTER SET utf8 COLLATE utf8_bin NOT NULL
+  `downvoters` text CHARACTER SET utf8 COLLATE utf8_bin NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -99,9 +101,9 @@ CREATE TABLE `deck_database` (
 --
 
 INSERT INTO `deck_database` (`deck_id`, `cards`, `description`, `creator_id`, `title`, `points`) VALUES
-(1, './card_images/Anchoring.png https://img.scryfall.com/cards/normal/en/m19/227.jpg https://img.scryfall.com/cards/normal/en/8ed/179.jpg https://img.scryfall.com/cards/normal/front/5/8/58fe058d-7796-4233-8d74-2a12f9bd0023.jpg https://img.scryfall.com/cards/normal/en/ptk/135.jpg ', 'A random collection of cards', 1, 'Random Deck #1', 0),
-(2, 'https://img.scryfall.com/cards/normal/en/wwk/1.jpg https://img.scryfall.com/cards/normal/en/e01/1.jpg https://img.scryfall.com/cards/normal/en/lrw/51.jpg https://img.scryfall.com/cards/normal/en/avr/212.jpg https://img.scryfall.com/cards/normal/en/bbd/87.jpg https://img.scryfall.com/cards/normal/en/bbd/88.jpg ./card_images/Cleanse.png ', 'A bunch of random angel cards', 1, 'Angelic Randomosity', 0),
-(5, 'https://img.scryfall.com/cards/normal/en/10e/192.jpg https://img.scryfall.com/cards/normal/en/8ed/179.jpg https://img.scryfall.com/cards/normal/en/m11/131.jpg https://img.scryfall.com/cards/normal/en/jou/92.jpg https://img.scryfall.com/cards/normal/en/bng/90.jpg https://img.scryfall.com/cards/normal/en/m14/135.jpg https://img.scryfall.com/cards/normal/en/mir/171.jpg https://img.scryfall.com/cards/normal/front/c/3/c310df89-d894-40ab-ae34-7d0bfd19a1af.jpg https://img.scryfall.com/cards/normal/en/gtc/164.jpg https://img.scryfall.com/cards/normal/en/jou/99.jpg https://img.scryfall.com/cards/normal/en/8ed/195.jpg https://img.scryfall.com/cards/normal/en/cn2/166.jpg https://img.scryfall.com/cards/normal/en/arb/119.jpg https://img.scryfall.com/cards/normal/en/dds/24.jpg https://img.scryfall.com/cards/normal/front/2/e/2ec7523a-a9c4-4b76-8f9e-b591a88e2e37.jpg https://img.scryfall.com/cards/normal/en/fut/75.jpg https://img.scryfall.com/cards/normal/en/dom/139.jpg ', 'Every Cyclops in MTG', 1, 'Cyclops Collection', 0);
+(1, './card_images/Anchoring.png https://img.scryfall.com/cards/normal/en/m19/227.jpg https://img.scryfall.com/cards/normal/en/8ed/179.jpg https://img.scryfall.com/cards/normal/front/5/8/58fe058d-7796-4233-8d74-2a12f9bd0023.jpg https://img.scryfall.com/cards/normal/en/ptk/135.jpg ', 'A random collection of cards', 1, 'Random Deck #1', 0, "", ""),
+(2, 'https://img.scryfall.com/cards/normal/en/wwk/1.jpg https://img.scryfall.com/cards/normal/en/e01/1.jpg https://img.scryfall.com/cards/normal/en/lrw/51.jpg https://img.scryfall.com/cards/normal/en/avr/212.jpg https://img.scryfall.com/cards/normal/en/bbd/87.jpg https://img.scryfall.com/cards/normal/en/bbd/88.jpg ./card_images/Cleanse.png ', 'A bunch of random angel cards', 1, 'Angelic Randomosity', 0, "", ""),
+(5, 'https://img.scryfall.com/cards/normal/en/10e/192.jpg https://img.scryfall.com/cards/normal/en/8ed/179.jpg https://img.scryfall.com/cards/normal/en/m11/131.jpg https://img.scryfall.com/cards/normal/en/jou/92.jpg https://img.scryfall.com/cards/normal/en/bng/90.jpg https://img.scryfall.com/cards/normal/en/m14/135.jpg https://img.scryfall.com/cards/normal/en/mir/171.jpg https://img.scryfall.com/cards/normal/front/c/3/c310df89-d894-40ab-ae34-7d0bfd19a1af.jpg https://img.scryfall.com/cards/normal/en/gtc/164.jpg https://img.scryfall.com/cards/normal/en/jou/99.jpg https://img.scryfall.com/cards/normal/en/8ed/195.jpg https://img.scryfall.com/cards/normal/en/cn2/166.jpg https://img.scryfall.com/cards/normal/en/arb/119.jpg https://img.scryfall.com/cards/normal/en/dds/24.jpg https://img.scryfall.com/cards/normal/front/2/e/2ec7523a-a9c4-4b76-8f9e-b591a88e2e37.jpg https://img.scryfall.com/cards/normal/en/fut/75.jpg https://img.scryfall.com/cards/normal/en/dom/139.jpg ', 'Every Cyclops in MTG', 1, 'Cyclops Collection', 0, "", "");
 
 -- --------------------------------------------------------
 
