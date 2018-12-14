@@ -13,6 +13,7 @@ else{
 	$max = $conn->query("SELECT max(".$_id.") FROM ".$database)->fetch_all()[0][0];
 	echo $max;
 }
+$conn->close();
 ?>
 </body>
 </html>

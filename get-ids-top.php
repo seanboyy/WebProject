@@ -8,9 +8,10 @@ if($conn->connect_errno){
 echo("failed to connect!");
 }
 else{
-$resultset = $conn->query("SELECT `card_id` FROM `custom_cards`")->fetch_all();
-for($i = count($resultset) - 1; $i >= 0; --$i){
-echo $resultset[$i][0];
+$resultset = $conn->query("SELECT `card_id` FROM `custom_cards` ORDER BY `points` DESC, `card_id` ASC")->fetch_all();
+$reverse_set = array_reverse($resultset);
+for($i = count($reverse_set) - 1; $i >= 0; --$i){
+echo $reverse_set[$i][0];
 if($i != 0) echo "<br>";
 }
 }

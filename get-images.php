@@ -14,6 +14,7 @@
 					echo "<span class='cardSpan' id='".$reversed[$i][0]."' onmouseenter='doEntry(".$reversed[$i][0].", this)' onmouseleave='doLeave(".$reversed[$i][0].", this)'><a href='./card-view.php?id=".$reversed[$i][0]."'><img alt='".$reversed[$i][0]."' src='".$reversed[$i][1]."' class='cardFormat'/></a></span>";
 				}
 			}
+			$conn->close();
 		?>
 	</body>
 </html>

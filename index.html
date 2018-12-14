@@ -30,6 +30,28 @@
 	<body>
 		<!-- Header is dynamically loaded using AJAX-->
 		<div id="header" class="row"></div>
+		<div id="sort-by" class="text-center">
+			<table align="center">
+				<tbody>
+					<tr>
+						<td>Sort By</td>
+					</tr>
+					<tr>
+						<td>
+							<table>
+								<tbody>
+									<tr>
+										<td><input class="byNew vote" type="button" onclick="doNew()" value="New"/></td>
+										<td><input class="byTop vote" type="button" onclick="doTop()" value="Top"/></td>
+									</tr>
+								</tbody>
+							</table>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<br>
 		<div id="cards" class="text-center">
 		</div>
 		<!--
