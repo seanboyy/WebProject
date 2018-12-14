@@ -11,7 +11,7 @@ $(document).ready(function(){
 			"</div>" +
 			"<div class=\"col-xs-6 noPad\">" +
 				"<div class=\"headCol text-center\">" +
-					"<p class=\"title\">Magic Maker</p>" +
+					"<p class=\"title header\">Magic Maker</p>" +
 				"</div>" +
 			"</div>" +
 			"<div class=\"col-xs-3 noPad\">" +

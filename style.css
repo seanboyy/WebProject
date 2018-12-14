@@ -3,8 +3,11 @@
 	padding-top:15px;
 	font-family: 'Milonga', cursive;
 	margin:0px;
+}
+.header {
 	background-color:#333333 !important
 }
+
 .headIcon{
 	max-height:100px;
 	max-width:100%;
