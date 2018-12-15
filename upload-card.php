@@ -102,9 +102,10 @@
 						$cardid[0]++;
 						$userid = $_SESSION["userid"];
 						$points = 0;
-						if ($stmt = $conn->prepare("INSERT INTO `custom_cards` VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"))					
+						if ($stmt = $conn->prepare("INSERT INTO `custom_cards` VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"))					
 						{
-							$stmt->bind_param("isssisiiissi", $cardid[0], $input["card-name"], $input["mana-cost"], $input["type-line"], $input["rarity"], $input["rules-text"], $input["power"], $input["toughness"], $userid, $input["description"], $picloc, $points);
+							$empty = "";
+							$stmt->bind_param("isssisiiississ", $cardid[0], $input["card-name"], $input["mana-cost"], $input["type-line"], $input["rarity"], $input["rules-text"], $input["power"], $input["toughness"], $userid, $input["description"], $picloc, $points, $empty, $empty);
 							$stmt->execute();
 							
 							echo("<p><a href=\"./card-view.php?id=" . $cardid[0] . "\">Back to card view</a></p>");
