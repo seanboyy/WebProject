@@ -47,12 +47,12 @@
 					else
 					{
 						// Double check we have,  in fact, a deck we're displaying
-						$result = $conn->query("SELECT (creator_id), deck_id, points FROM `deck_database` WHERE deck_id = " . $_GET['id']);
+						$result = $conn->query("SELECT creator_id, deck_id, points FROM `deck_database` WHERE deck_id = " . $_GET['id']);
 						$deck = $result->fetch_all();	
 						$_SESSION['creator_id'] = $deck[0][0];
 						
 						echo ("<input class=\"vote\" type='button' onclick='doUpvote(".$deck[0][1].")' value='Upvote'/>
-								<p id='dpu".$deck[0][2]."'></p>
+								<p id='dpu".$deck[0][1]."'>".$deck[0][2]."</p>
 								<input class=\"vote\" type='button' onclick='doDownvote(".$deck[0][1].")' value='Downvote'/>");
 						
 						$result2 = $conn->query("SELECT username FROM user_data WHERE user_id = " . $deck[0][0]);
