@@ -66,7 +66,27 @@
 				}
 				else
 				{
-					
+					$points = $conn->query("SELECT points FROM user_data WHERE user_id = '$userId'");
+					$Points = $points->fetch_all()[0];
+					$actualPoints1 = $conn->query("SELECT SUM(points) FROM custom_cards WHERE creator_id ='$userId'")->fetch_assoc();
+					if (count($actualPoints1) == 0)
+					{
+						$actualPoints1["SUM(points)"] = 0;
+						echo("There are no points associated with this user from custom cards.");
+					}
+					//$ActualPoints1 = actualPoints1->fetch_all()[1];
+					$actualPoints2 = $conn->query("SELECT SUM(points) FROM deck_database WHERE creator_id ='$userId'")->fetch_assoc();
+					if (count($actualPoints2) == 0)
+					{
+						$actualPoints2["SUM(points)"] = 0;
+						echo("There are no points associated with this user from custom decks.");
+					}
+					//$ActualPoints2 = actualPoints2->fetch_all()[1];
+					$actualPoints = $actualPoints1["SUM(points)"]+$actualPoints2["SUM(points)"];
+					if($Points[0] != $actualPoints){
+						$adminUpdate = $conn->query("UPDATE user_data SET points='$actualPoints' WHERE user_id =". $userId);
+					}
+
 					$result = $conn->query("SELECT username, points FROM user_data WHERE user_id = '$userId'");
 					$userInfo = $result->fetch_all()[0];
 					echo("Username: " . $userInfo[0] . "<br />Points: " . $userInfo[1]);
@@ -88,6 +108,7 @@
 					$conn = new mysqli("127.0.0.1", "root", "", "card_database");
 					$statusMessage = "";
 					$userId = $_SESSION["userid"];
+					
 					// Check connection
 					if ($conn->connect_errno) 
 					{
