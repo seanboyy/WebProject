@@ -42,7 +42,7 @@
 	width: 50px;
 }
 
-div, p, button, html, fieldset, legend {
+div, p, button, html, fieldset, legend, br {
 	background-color:#424949;
 }
 

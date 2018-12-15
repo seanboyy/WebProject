@@ -18,7 +18,8 @@
 		<link rel="shortcut icon" href="icon.png"/>
 				
 		<script type="text/javascript" src="http://code.jquery.com/jquery-3.1.0.min.js"></script>
-		<script type="text/javascript" src="load-cards-on-scroll.js"></script>
+		<!--<script type="text/javascript" src="load-cards-on-scroll.js"></script>-->
+		<script type="text/javascript" src="deck-main-script.js"></script>
 		<script type="text/javascript" src="loadHeader.js"></script>
 		
 		<!-- For Bootstrap: -->
@@ -33,6 +34,11 @@
 		<div id="header" class="row"></div>
 		<div class="text-center">
 		<?php
+					
+		?>
+		</div>
+		<div class="text-center">
+		<?php
 					$conn = mysqli_connect('localhost', 'root', '', 'card_database');
 					if($conn->connect_errno)
 					{
@@ -41,9 +47,14 @@
 					else
 					{
 						// Double check we have,  in fact, a deck we're displaying
-						$result = $conn->query("SELECT (creator_id) FROM `deck_database` WHERE deck_id = " . $_GET['id']);
+						$result = $conn->query("SELECT (creator_id), deck_id, points FROM `deck_database` WHERE deck_id = " . $_GET['id']);
 						$deck = $result->fetch_all();	
 						$_SESSION['creator_id'] = $deck[0][0];
+						
+						echo ("<input class=\"vote\" type='button' onclick='doUpvote(".$deck[0][1].")' value='Upvote'/>
+								<p id='dpu".$deck[0][2]."'></p>
+								<input class=\"vote\" type='button' onclick='doDownvote(".$deck[0][1].")' value='Downvote'/>");
+						
 						$result2 = $conn->query("SELECT username FROM user_data WHERE user_id = " . $deck[0][0]);
 						$deck2 = $result2->fetch_all();
 						echo("<label for=\"creator_id\">Creator Name: </label>");
